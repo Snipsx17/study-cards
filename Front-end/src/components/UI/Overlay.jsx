@@ -13,7 +13,7 @@ const Overlay = ({ visible, handleClick }) => {
 
 Overlay.propTypes = {
   visible: PropType.bool,
-  setIsVisible: PropType.func,
+  handleClick: PropType.func,
 };
 
 export default Overlay;

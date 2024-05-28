@@ -2,6 +2,7 @@
 .vscode
 .prettierrc
 .env
+.DS_Store
 *.log
 
 ## folders

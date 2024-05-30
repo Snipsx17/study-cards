@@ -3,6 +3,7 @@
 .prettierrc
 .env
 .DS_Store
+/src/.DS_Store
 *.log
 
 ## folders

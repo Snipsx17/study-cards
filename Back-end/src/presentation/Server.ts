@@ -1,10 +1,10 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import { loggerMiddleware, cookieParserMiddleware } from '../plugins';
-import { userLogin } from '../v1';
+import { apiV1 } from '../v1';
 
 interface ServerOptions {
   port: string | undefined;
-  publicDir: string;
+  publicDir: string | undefined;
   errorHandler: (
     err: Error,
     req: Request,
@@ -37,19 +37,7 @@ export class Server {
     this.app.use(cookieParserMiddleware());
 
     // routes
-    this.app.use('/api/v1', userLogin);
-
-    this.app.get('/error', async (req, res, next) => {
-      // res.statusCode = 200;
-      try {
-        const data = await fetch('nothing').catch(() => {
-          throw new Error('not found!!!!');
-        });
-      } catch (error) {
-        res.statusCode = 404;
-        next(error);
-      }
-    });
+    this.app.use('/api/v1', apiV1);
 
     this.app.listen(this.port, () => {
       console.log(`Listening in the port: ${this.port}!`);

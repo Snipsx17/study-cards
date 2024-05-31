@@ -5,9 +5,10 @@ import { errorHandler } from './middlewares';
 // Variables
 config();
 const PORT = process.env.PORT;
+const PUBLIC_FOLDER = process.env.PUBLIC_FOLDER;
 const server = new Server({
   port: PORT,
-  publicDir: 'public',
+  publicDir: PUBLIC_FOLDER,
   errorHandler: errorHandler,
 });
 

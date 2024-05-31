@@ -1,5 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
+interface resBody {
+  message: string;
+  stack?: string;
+}
+
 export const errorHandler = (
   err: Error,
   req: Request,
@@ -9,11 +14,13 @@ export const errorHandler = (
   const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
   res.status(statusCode);
 
-  const resBody = {
+  const resBody: resBody = {
     message: err.message,
-    stack: err.stack,
   };
 
-  console.log(process.env.ENV === 'PRODUCTION' ? '' : resBody);
+  if (process.env.ENV !== 'PRODUCTION') {
+    resBody.stack = err.stack;
+  }
+
   res.json(resBody);
 };

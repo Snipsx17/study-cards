@@ -1,4 +1,3 @@
-import { loggerMiddleware } from './httpLogger.plugin';
-import { cookieParserMiddleware } from './cookieParser.plugin';
-
-export { loggerMiddleware, cookieParserMiddleware };
+export { loggerMiddleware } from './httpLogger.plugin';
+export { cookieParserMiddleware } from './cookieParser.plugin';
+export { RequestValidatorAdapter } from './requestValidator.plugin';

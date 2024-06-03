@@ -33,6 +33,7 @@ export class Server {
   start() {
     // public directory
     this.app.use(express.static(this.publicDir));
+    this.app.use(express.json());
     this.app.use(loggerMiddleware('dev'));
     this.app.use(cookieParserMiddleware());
 

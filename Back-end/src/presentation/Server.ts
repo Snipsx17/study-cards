@@ -1,6 +1,7 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import { loggerMiddleware, cookieParserMiddleware } from '../plugins';
 import { apiV1 } from '../v1';
+import { DBClient } from '../db/DBClient';
 
 interface ServerOptions {
   port: string | undefined;
@@ -12,6 +13,7 @@ interface ServerOptions {
     next: NextFunction
   ) => void;
 }
+
 export class Server {
   private app = express();
   private readonly port: string | undefined;
@@ -36,6 +38,11 @@ export class Server {
     this.app.use(express.json());
     this.app.use(loggerMiddleware('dev'));
     this.app.use(cookieParserMiddleware());
+
+    // db connection
+    const dbClient = new DBClient();
+    const DB_URI = process.env.DB_URI || 'mongodb://localhost:27017';
+    dbClient.connect(DB_URI);
 
     // routes
     this.app.use('/api/v1', apiV1);

@@ -4,34 +4,47 @@ import { RequestValidatorAdapter } from '../../plugins/requestValidator.plugin';
 import { userValidationSchema } from '../../middlewares/validator/Schemas';
 import { generateSaltRounds } from '../../utils';
 import { DBClient } from '../../db/DBClient';
-import {
-  comparePassword,
-  hashPassword,
-} from '../../plugins/passwordHash.plugin';
+import { hashPassword } from '../../plugins/passwordHash.plugin';
 export const authRouter = Router();
+
 const requestValidator = new RequestValidatorAdapter();
 const requestValidatorMiddleware = buildRequestValidator(requestValidator);
 const dbClient = new DBClient();
 
-authRouter.get(
+authRouter.post(
   '/register',
   requestValidatorMiddleware(userValidationSchema),
-  async (req, res) => {
+  async (req, res, next) => {
     const { username, email, password } = req.body;
 
-    const userExists = await dbClient.findUserByEmail(email);
-    if (userExists) {
-      res.status(400);
-      res.send('User already exists');
+    try {
+      const userExists = await dbClient.findUserByEmail(email);
+      if (userExists) {
+        res.status(400);
+        throw new Error(`A user with email: ${email} exists`);
+      }
+
+      const passwordHashed = await hashPassword(
+        password,
+        generateSaltRounds(Number(process.env.MAX_SALT_LENGTH) || 5)
+      );
+      // save user
+      await dbClient
+        .createUser({
+          username,
+          email,
+          password: passwordHashed,
+        })
+        .then((user) => {
+          res.send({ message: 'User created successfully' });
+          return;
+        })
+        .catch((err) => {
+          throw new Error('Error creating user');
+        });
+    } catch (error) {
+      next(error);
       return;
     }
-    // generate salt round
-    const saltRounds = generateSaltRounds(5);
-    // hash password
-    const passwordHashed = await hashPassword(password, saltRounds);
-    // save user
-    // generate token
-    // send token
-    res.send('Hello User');
   }
 );

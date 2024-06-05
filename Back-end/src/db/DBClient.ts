@@ -19,5 +19,12 @@ export class DBClient {
     return await userModel.findOne({ email });
   }
 
-  async createUser({ username, email, password }: User) {}
+  async createUser({ username, email, password }: User): Promise<User> {
+    const user = new userModel({
+      username,
+      email,
+      password,
+    });
+    return await user.save();
+  }
 }

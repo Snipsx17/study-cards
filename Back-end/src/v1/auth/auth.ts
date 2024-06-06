@@ -11,6 +11,7 @@ import {
   comparePassword,
   hashPassword,
 } from '../../plugins/passwordHash.plugin';
+import { TokenParams, createToken } from '../../plugins/jwt.plugin';
 export const authRouter = Router();
 
 const requestValidator = new RequestValidatorAdapter();
@@ -79,7 +80,18 @@ authRouter.post(
         throw new Error(`Invalid username or password`);
       }
 
-      res.send(`Welcome ${userExist.username}`);
+      const tokenParams: TokenParams = {
+        data: {
+          _id: String(userExist._id),
+          username: userExist.username,
+          email: userExist.email,
+        },
+        exp: '1d',
+      };
+
+      const token = createToken(tokenParams);
+
+      res.send({ token });
     } catch (error) {
       next(error);
     }

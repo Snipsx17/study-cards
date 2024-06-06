@@ -16,8 +16,16 @@ export class DBClient {
   async findUserById(id: string) {}
 
   async findUserByEmail(email: string) {
-    return await userModel.findOne({ email });
+    const user = await userModel.findOne({ email });
+    return user ? user : null;
   }
 
-  async createUser({ username, email, password }: User) {}
+  async createUser({ username, email, password }: User): Promise<User> {
+    const user = new userModel({
+      username,
+      email,
+      password,
+    });
+    return await user.save();
+  }
 }

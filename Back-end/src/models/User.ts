@@ -1,6 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 
-const userSchema: Schema = new Schema(
+interface UserInterface {
+  username: string;
+  email: string;
+  password: string;
+}
+const userSchema = new Schema<UserInterface>(
   {
     username: {
       type: String,
@@ -17,12 +22,6 @@ const userSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-    saltRounds: {
-      type: Number,
-      required: true,
-      default: 5,
-      index: true,
-    },
   },
   {
     timestamps: true,
@@ -30,4 +29,4 @@ const userSchema: Schema = new Schema(
   }
 );
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model<UserInterface>('User', userSchema);

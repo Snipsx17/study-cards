@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import './UI.css';
 
 const Button = ({ principal, text, onClick }) => {
   return (

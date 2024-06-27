@@ -16,10 +16,10 @@ const NavBar = () => {
           principal
           onClick={() => setIsVisibleOverlay(true)}
         />
-        {auth.isLogged ? (
+        {auth?.isLogged ? (
           <UserProfile userName="Uberth" />
         ) : (
-          <Button text="Login" />
+          <Button text="Login" onClick={() => {}} />
         )}
       </nav>
       <Overlay visible={isVisibleOverlay} handleClick={setIsVisibleOverlay} />

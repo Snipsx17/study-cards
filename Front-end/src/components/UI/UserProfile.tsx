@@ -1,7 +1,9 @@
-import PropTypes from 'prop-types';
-import UserAvatar from '../../assets/user-avatar.png';
+type Props = {
+  userName: string;
+  avatar?: string;
+};
 
-const UserProfile = ({ userName, avatar }) => {
+const UserProfile = ({ userName, avatar }: Props) => {
   return (
     <div className="flex gap-5 justify-center items-center cursor-pointer">
       <span className="text-white uppercase text-xxl">{userName}</span>
@@ -9,18 +11,13 @@ const UserProfile = ({ userName, avatar }) => {
         className="rounded-full w-14 h-14 bg-auto bg-white"
         style={{
           background: `#fff url(${
-            avatar ? avatar : UserAvatar
+            avatar ? avatar : '../../assets/user-avatar.png'
           }) no-repeat center`,
-          'background-size': '25px',
+          backgroundSize: '25px',
         }}
       ></span>
     </div>
   );
-};
-
-UserProfile.propTypes = {
-  userName: PropTypes.string.isRequired,
-  avatar: PropTypes.string,
 };
 
 export default UserProfile;

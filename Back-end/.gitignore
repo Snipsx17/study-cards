@@ -1,0 +1,10 @@
+## files
+.vscode
+.prettierrc
+.env
+.DS_Store
+*.log
+
+## folders
+node_modules/
+dist/

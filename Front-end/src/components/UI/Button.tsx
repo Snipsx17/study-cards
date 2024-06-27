@@ -1,12 +1,8 @@
-<<<<<<< HEAD:Front-end/src/components/UI/Button.tsx
 type Props = {
   principal?: boolean;
   text: string;
   onClick: () => void;
 };
-=======
-import PropTypes from 'prop-types';
->>>>>>> f252da8 (Delete UI.css import):Front-end/src/components/UI/Button.jsx
 
 const Button = ({ text, principal = false, onClick }: Props) => {
   return (

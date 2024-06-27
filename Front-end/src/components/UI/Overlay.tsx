@@ -1,6 +1,9 @@
-import PropType from 'prop-types';
+type Props = {
+  visible: boolean;
+  handleClick: (isVisible: boolean) => void;
+};
 
-const Overlay = ({ visible, handleClick }) => {
+const Overlay = ({ visible, handleClick }: Props) => {
   return visible ? (
     <>
       <div
@@ -9,11 +12,6 @@ const Overlay = ({ visible, handleClick }) => {
       ></div>
     </>
   ) : null;
-};
-
-Overlay.propTypes = {
-  visible: PropType.bool,
-  handleClick: PropType.func,
 };
 
 export default Overlay;

@@ -1,3 +1,4 @@
+/// <reference types="vite-plugin-svgr/client" />
 import Logo from '../../assets/logo.svg';
 import '../../App.css';
 import NavBar from './NavBar';

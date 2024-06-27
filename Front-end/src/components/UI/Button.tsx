@@ -1,7 +1,10 @@
-import PropTypes from 'prop-types';
-import './UI.css';
+type Props = {
+  principal?: boolean;
+  text: string;
+  onClick: () => void;
+};
 
-const Button = ({ principal, text, onClick }) => {
+const Button = ({ text, principal = false, onClick }: Props) => {
   return (
     <>
       <button
@@ -16,12 +19,6 @@ const Button = ({ principal, text, onClick }) => {
       </button>
     </>
   );
-};
-
-Button.propTypes = {
-  principal: PropTypes.bool,
-  text: PropTypes.string,
-  onClick: PropTypes.func,
 };
 
 export default Button;

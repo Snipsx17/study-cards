@@ -11,7 +11,9 @@ const Overlay = ({ visible, handleClick, children }: Props) => {
         onClick={() => handleClick(false)}
         className={`w-screen h-full bg-black/50 absolute top-0 left-0 flex justify-center items-center`}
       >
-        {children}
+        <div className="max-w-[300px] max-h-[200px] bg-white rounded-md	p-8">
+          {children}
+        </div>
       </div>
     </>
   ) : null;

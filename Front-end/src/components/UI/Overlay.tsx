@@ -1,3 +1,5 @@
+import { Modal } from './Modal';
+
 type Props = {
   visible: boolean;
   handleClick: (isVisible: boolean) => void;
@@ -13,12 +15,7 @@ const Overlay = ({ visible, handleClick, children }: Props) => {
         }}
         className={`w-screen h-full bg-black/50 absolute top-0 left-0 flex justify-center items-center`}
       >
-        <div
-          className="max-w-[300px] max-h-[200px] bg-white rounded-md	p-8"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {children}
-        </div>
+        <Modal onClose={handleClick}>{children}</Modal>
       </div>
     </>
   ) : null;

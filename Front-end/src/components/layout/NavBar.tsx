@@ -1,6 +1,7 @@
 import useLogin from '../../providers/auth/UseLogin';
 import Button from '../UI/Button';
 import UserProfile from '../UI/UserProfile';
+import { Login } from '../forms/Login';
 
 type Props = {
   overlayHandler: (isVisible: boolean, content: React.ReactNode) => void;
@@ -22,7 +23,7 @@ const NavBar = ({ overlayHandler }: Props) => {
         ) : (
           <Button
             text="Login"
-            onClick={() => overlayHandler(true, <p>Login</p>)}
+            onClick={() => overlayHandler(true, <Login />)}
           />
         )}
       </nav>

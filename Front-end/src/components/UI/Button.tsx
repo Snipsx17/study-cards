@@ -1,10 +1,12 @@
 type Props = {
   principal?: boolean;
   text: string;
-  onClick: () => void;
+  styles?: string;
+  type?: string;
+  onClick?: () => void;
 };
 
-const Button = ({ text, principal = false, onClick }: Props) => {
+const Button = ({ text, principal = false, onClick, styles }: Props) => {
   return (
     <>
       <button
@@ -12,10 +14,9 @@ const Button = ({ text, principal = false, onClick }: Props) => {
           principal
             ? 'border-0 text-purple px-[30px] py-[9.5px] bg-white hover:bg-slate-100'
             : ' text-white bg-transparent border-2 px-11 py-3'
-        }  text-xl  border-white m-4 box-border flex-initial hover:bg-white hover:text-purple`}
-        onClick={() => {
-          onClick();
-        }}
+        } 
+        text-xl  border-white m-4 box-border flex-initial hover:bg-white hover:text-purple ${styles}`}
+        onClick={onClick}
       >
         {text}
       </button>

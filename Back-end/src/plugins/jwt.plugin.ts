@@ -9,7 +9,7 @@ export interface TokenParams {
     username: string;
     email: string;
   };
-  exp: '1d' | '2d' | '5d' | '10d' | '15d' | '30d';
+  exp: string;
 }
 
 export const createToken = ({ data, exp }: TokenParams): string => {

@@ -2,7 +2,7 @@ import React from 'react';
 
 type Props = {
   children: React.ReactNode;
-  onClose: (isVisible: boolean) => void;
+  onClose: () => void;
 };
 
 export const Modal = ({ children, onClose }: Props) => {
@@ -13,9 +13,7 @@ export const Modal = ({ children, onClose }: Props) => {
     >
       <span
         className="absolute top-4 right-5 cursor-pointer text-3xl"
-        onClick={() => {
-          onClose(false);
-        }}
+        onClick={onClose}
       >
         X
       </span>

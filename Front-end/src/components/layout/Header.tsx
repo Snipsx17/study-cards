@@ -5,27 +5,22 @@ import NavBar from './NavBar';
 
 import NavMobile from './MobileNavBar';
 import Overlay from '../UI/Overlay';
-import { ReactNode, useState } from 'react';
+import { useEffect, useState } from 'react';
+import Button from '../UI/Button';
+import { useOverlayContext } from '../../providers/overlay/useOverlay';
 
 const Header = () => {
-  const [isVisibleOverlay, setIsVisibleOverlay] = useState(false);
-  const [overlayContent, setOverlayContent] = useState<ReactNode | null>(null);
-
-  const overlayHandler = (isVisible: boolean, content: ReactNode) => {
-    setIsVisibleOverlay(isVisible);
-    setOverlayContent(content);
-  };
+  const { content, isVisible } = useOverlayContext() ?? {};
 
   return (
     <>
       <header className="bg-purple px-14 py-5 flex items-center justify-between">
         <Logo width="200" />
-        <NavBar overlayHandler={overlayHandler} />
+        <NavBar />
         <NavMobile />
       </header>
-      <Overlay visible={isVisibleOverlay} handleClick={setIsVisibleOverlay}>
-        {overlayContent}
-      </Overlay>
+      {/* <Overlay visible={isVisible} children={content} /> */}
+      {isVisible && <Overlay visible={isVisible} children={content} />}
     </>
   );
 };

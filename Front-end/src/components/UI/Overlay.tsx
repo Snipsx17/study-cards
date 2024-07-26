@@ -8,10 +8,10 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const Overlay = ({ children, visible }: Props) => {
+const Overlay = ({ children }: Props) => {
   const { hideOverlay = () => {} } = useOverlayContext() ?? {};
 
-  return visible ? (
+  return (
     <>
       <div
         onClick={hideOverlay}
@@ -20,7 +20,7 @@ const Overlay = ({ children, visible }: Props) => {
         <Modal onClose={hideOverlay}>{children}</Modal>
       </div>
     </>
-  ) : null;
+  );
 };
 
 export default Overlay;

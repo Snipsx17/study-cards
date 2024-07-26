@@ -4,16 +4,12 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    svgr({
-      svgrOptions: {
-        exportType: 'default',
-        ref: true,
-        svgo: false,
-        titleProp: true,
-      },
-      include: '**/*.svg',
-    }),
-  ],
+  plugins: [react(), svgr()],
+  assets: {
+    include: ['**/*.png', '**/*.jpg', '**/*.svg'],
+    dirs: ['src/assets', 'src/assets/icons'],
+    alias: {
+      '@assets': './src/assets',
+    },
+  },
 });

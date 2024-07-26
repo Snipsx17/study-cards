@@ -5,8 +5,9 @@ interface OverlayContextProps {
   content: ReactNode | null;
 }
 
+// !! remove null
 export interface OverlayProviderProps extends OverlayContextProps {
-  showOverlay: (content: ReactNode | null) => void;
+  showOverlay: (content: ReactNode) => void;
   hideOverlay: () => void;
 }
 

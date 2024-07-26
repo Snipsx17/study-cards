@@ -1,12 +1,10 @@
 /// <reference types="vite-plugin-svgr/client" />
-import Logo from '../../assets/logo.svg';
+
+import Logo from '../../assets/logo.svg?react';
 import '../../App.css';
 import NavBar from './NavBar';
-
 import NavMobile from './MobileNavBar';
 import Overlay from '../UI/Overlay';
-import { useEffect, useState } from 'react';
-import Button from '../UI/Button';
 import { useOverlayContext } from '../../providers/overlay/useOverlay';
 
 const Header = () => {
@@ -19,8 +17,7 @@ const Header = () => {
         <NavBar />
         <NavMobile />
       </header>
-      {/* <Overlay visible={isVisible} children={content} /> */}
-      {isVisible && <Overlay visible={isVisible} children={content} />}
+      {isVisible && <Overlay visible={isVisible}>{content}</Overlay>}
     </>
   );
 };

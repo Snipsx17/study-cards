@@ -1,15 +1,10 @@
-import useLogin from '../../providers/auth/useLogin';
-import { useOverlayContext } from '../../providers/overlay/useOverlay';
+import { useOverlayContext, useLogin } from '../../providers';
 import Button from '../UI/Button';
 import UserProfile from '../UI/UserProfile';
 import { Login } from '../forms/Login';
 
-type Props = {
-  overlayHandler: (isVisible: boolean, content: React.ReactNode) => void;
-};
-
 const NavBar = () => {
-  const auth = useLogin();
+  const { isLogged } = useLogin() ?? {};
   const { showOverlay = () => {} } = useOverlayContext() ?? {};
 
   return (
@@ -20,7 +15,7 @@ const NavBar = () => {
           principal
           onClick={() => showOverlay(<p>Create</p>)}
         />
-        {auth?.isLogged ? (
+        {isLogged ? (
           <UserProfile userName="Uberth" />
         ) : (
           <Button text="Login" onClick={() => showOverlay(<Login />)} />

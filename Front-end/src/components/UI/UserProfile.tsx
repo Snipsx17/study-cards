@@ -1,3 +1,5 @@
+import logo from '@/assets/user-avatar.png';
+
 type Props = {
   userName: string;
   avatar?: string;
@@ -10,12 +12,12 @@ const UserProfile = ({ userName, avatar }: Props) => {
       <span
         className="rounded-full w-14 h-14 bg-auto bg-white"
         style={{
-          background: `#fff url(${
-            avatar ? avatar : '../../assets/user-avatar.png'
-          }) no-repeat center`,
+          background: `#fff url(${logo}) no-repeat center`,
           backgroundSize: '25px',
         }}
-      ></span>
+      >
+        <img src="" alt="" />
+      </span>
     </div>
   );
 };

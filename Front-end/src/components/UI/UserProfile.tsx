@@ -2,10 +2,9 @@ import logo from '@/assets/user-avatar.png';
 
 type Props = {
   userName: string;
-  avatar?: string;
 };
 
-const UserProfile = ({ userName, avatar }: Props) => {
+const UserProfile = ({ userName }: Props) => {
   return (
     <div className="flex gap-5 justify-center items-center cursor-pointer">
       <span className="text-white uppercase text-xxl">{userName}</span>

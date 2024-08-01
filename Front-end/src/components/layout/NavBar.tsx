@@ -15,7 +15,7 @@ const NavBar = () => {
           principal
           onClick={() => showOverlay(<p>Create</p>)}
         />
-        {!isLogged ? (
+        {isLogged ? (
           <UserProfile userName="Uberth" />
         ) : (
           <Button text="Login" onClick={() => showOverlay(<Login />)} />

@@ -1,16 +1,13 @@
-const storage = {
-  get: (item: string) => {
+export default class Storage {
+  static get = (item: string): string | null => {
     const localObject = localStorage.getItem(item);
-    if (!localObject) {
-      return null;
-    }
+    return localObject ? JSON.parse(localObject) : null;
+  };
 
-    return JSON.parse(localObject);
-  },
-  set: (id: string, data: unknown) =>
-    localStorage.setItem(id, JSON.stringify(data)),
-  remove: (id: string) => localStorage.removeItem(id),
-  clear: () => localStorage.clear(),
-};
+  static set = (id: string, data: unknown): void =>
+    localStorage.setItem(id, JSON.stringify(data));
 
-export default storage;
+  static remove = (id: string) => localStorage.removeItem(id);
+
+  static clear = () => localStorage.clear();
+}

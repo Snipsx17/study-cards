@@ -25,7 +25,10 @@ export const AuthContextProvider = ({ children, initiallyLogged }: Props) => {
       setIsLogged(true);
       Storage.set('isLogged', true);
     },
-    logout: () => setIsLogged(false),
+    logout: () => {
+      setIsLogged(false);
+      Storage.set('isLogged', false);
+    },
   };
 
   return (

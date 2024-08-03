@@ -1,3 +1,4 @@
+import Storage from '@/utils/localStorage';
 import { ReactNode, createContext, useState } from 'react';
 
 type Props = {
@@ -20,8 +21,14 @@ export const AuthContextProvider = ({ children, initiallyLogged }: Props) => {
 
   const authentication: AuthContextType = {
     isLogged,
-    login: () => setIsLogged(true),
-    logout: () => setIsLogged(false),
+    login: () => {
+      setIsLogged(true);
+      Storage.set('isLogged', true);
+    },
+    logout: () => {
+      setIsLogged(false);
+      Storage.set('isLogged', false);
+    },
   };
 
   return (

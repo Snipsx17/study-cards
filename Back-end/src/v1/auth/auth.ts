@@ -1,3 +1,5 @@
+import { config } from 'dotenv';
+config();
 import { Router } from 'express';
 import { buildRequestValidator } from '../../middlewares/validator/buildRequestValidator';
 import { RequestValidatorAdapter } from '../../plugins/requestValidator.plugin';
@@ -87,7 +89,7 @@ authRouter.post(
           username: userExist.username,
           email: userExist.email,
         },
-        exp: '1d',
+        exp: process.env.EXPIRATION_TOKEN || '1h',
       };
 
       const token = createToken(tokenParams);

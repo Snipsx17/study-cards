@@ -1,7 +1,8 @@
-import express, { Express, NextFunction, Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { loggerMiddleware, cookieParserMiddleware } from '../plugins';
 import { apiV1 } from '../v1';
 import { DBClient } from '../db/DBClient';
+import cors from 'cors';
 
 interface ServerOptions {
   port: string | undefined;
@@ -38,6 +39,7 @@ export class Server {
     this.app.use(express.json());
     this.app.use(loggerMiddleware('dev'));
     this.app.use(cookieParserMiddleware());
+    this.app.use(cors());
 
     // db connection
     const dbClient = new DBClient();

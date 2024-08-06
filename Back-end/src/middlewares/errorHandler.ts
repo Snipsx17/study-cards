@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 interface resBody {
   message: string;
   stack?: string;
+  error: boolean;
 }
 
 export const errorHandler = (
@@ -16,6 +17,7 @@ export const errorHandler = (
 
   const resBody: resBody = {
     message: err.message,
+    error: true,
   };
 
   if (process.env.ENV !== 'PRODUCTION') {

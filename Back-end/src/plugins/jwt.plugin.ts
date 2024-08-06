@@ -6,10 +6,10 @@ import { ObjectId } from 'mongoose';
 export interface TokenParams {
   data: {
     _id: string;
-    username: string;
-    email: string;
+    username?: string;
+    email?: string;
   };
-  exp: string;
+  exp: '1h' | '2h' | '6h' | '12h' | '1d';
 }
 
 export const createToken = ({ data, exp }: TokenParams): string => {

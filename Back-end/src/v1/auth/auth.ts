@@ -16,8 +16,9 @@ import {
 import { TokenParams, createToken } from '../../plugins/jwt.plugin';
 export const authRouter = Router();
 
-const requestValidator = new RequestValidatorAdapter();
-const requestValidatorMiddleware = buildRequestValidator(requestValidator);
+const requestValidatorMiddleware = buildRequestValidator(
+  RequestValidatorAdapter.validate
+);
 const dbClient = new DBClient();
 
 authRouter.post(

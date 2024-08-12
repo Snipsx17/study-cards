@@ -1,3 +1,4 @@
 export * from './errorHandler';
-export * from './validator/Schemas';
+export * from './validateToken';
 export * from './validator/buildRequestValidator';
+export * from './validator/Schemas';

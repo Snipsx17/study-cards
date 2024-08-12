@@ -89,7 +89,7 @@ authRouter.post(
           username: userExist.username,
           email: userExist.email,
         },
-        exp: process.env.EXPIRATION_TOKEN || '1h',
+        exp: '1h',
       };
 
       const token = createToken(tokenParams);

@@ -1,19 +1,23 @@
 import { config } from 'dotenv';
 config();
+
 import { Router } from 'express';
-import { buildRequestValidator } from '../../middlewares/validator/buildRequestValidator';
-import { RequestValidatorAdapter } from '../../plugins/requestValidator.plugin';
 import {
+  buildRequestValidator,
   registerUserValidationSchema,
   loginUserLoginValidationSchema,
-} from '../../middlewares/validator/Schemas';
-import { generateSaltRounds } from '../../utils';
-import { DBClient } from '../../db/DBClient';
+} from '../../middlewares';
 import {
+  RequestValidatorAdapter,
   comparePassword,
   hashPassword,
-} from '../../plugins/passwordHash.plugin';
-import { TokenParams, createToken } from '../../plugins/jwt.plugin';
+  TokenParams,
+  createToken,
+} from '../../plugins';
+
+import { generateSaltRounds } from '../../utils';
+import { DBClient } from '../../db/DBClient';
+
 export const authRouter = Router();
 
 const requestValidatorMiddleware = buildRequestValidator(

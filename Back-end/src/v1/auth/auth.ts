@@ -13,6 +13,7 @@ import {
   hashPassword,
   TokenParams,
   createToken,
+  TokenExpirationTimes,
 } from '../../plugins';
 
 import { generateSaltRounds } from '../../utils';
@@ -87,13 +88,16 @@ authRouter.post(
         throw new Error(`Invalid username or password`);
       }
 
+      const expirationTime =
+        (process.env.EXPIRATION_TOKEN as TokenExpirationTimes) || '1h';
+
       const tokenParams: TokenParams = {
         data: {
           _id: String(userExist._id),
           username: userExist.username,
           email: userExist.email,
         },
-        exp: '1h',
+        exp: expirationTime,
       };
 
       const token = createToken(tokenParams);

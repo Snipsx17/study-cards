@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authRouter } from './auth/auth';
-import { cardsRouter } from './user/getCards';
+import { cardsRouter } from './cards/cards';
 
 export const apiV1 = Router();
 

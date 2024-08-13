@@ -3,17 +3,7 @@ import { loggerMiddleware, cookieParserMiddleware } from '../plugins';
 import { apiV1 } from '../v1';
 import { DBClient } from '../db/DBClient';
 import cors from 'cors';
-
-interface ServerOptions {
-  port: string | undefined;
-  publicDir: string | undefined;
-  errorHandler: (
-    err: Error,
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => void;
-}
+import { ServerOptions } from '../types';
 
 export class Server {
   private app = express();

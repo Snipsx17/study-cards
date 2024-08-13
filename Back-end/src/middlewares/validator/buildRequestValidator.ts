@@ -1,7 +1,6 @@
 import Joi from 'joi';
 import { NextFunction, Request, Response } from 'express';
-
-type RequestValidator = (req: Request, schema: Joi.ObjectSchema) => void;
+import { RequestValidator } from '../../types';
 
 export const buildRequestValidator = (validator: RequestValidator) => {
   return (schemaValidator: Joi.ObjectSchema) => {

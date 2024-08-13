@@ -11,13 +11,12 @@ import {
   RequestValidatorAdapter,
   comparePassword,
   hashPassword,
-  TokenParams,
   createToken,
-  TokenExpirationTimes,
 } from '../../plugins';
 
 import { generateSaltRounds } from '../../utils';
 import { DBClient } from '../../db/DBClient';
+import { TokenExpirationTimes, TokenParams } from '../../types';
 
 export const authRouter = Router();
 

@@ -26,6 +26,10 @@ export interface UserInterface {
   password: string;
 }
 
+export interface RequestWithUser extends Request {
+  user?: User;
+}
+
 export interface resBody {
   message: string;
   stack?: string;

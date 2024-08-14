@@ -1,16 +1,7 @@
 import { config } from 'dotenv';
 config();
-import jwt from 'jsonwebtoken';
-import { ObjectId } from 'mongoose';
-
-export interface TokenParams {
-  data: {
-    _id: string;
-    username?: string;
-    email?: string;
-  };
-  exp: '1h' | '2h' | '6h' | '12h' | '1d';
-}
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { TokenParams, User } from '../types';
 
 export const createToken = ({ data, exp }: TokenParams): string => {
   const jwtSecret = process.env.JWT_TOKEN_SECRET || 'secret';
@@ -22,4 +13,21 @@ export const createToken = ({ data, exp }: TokenParams): string => {
     { expiresIn: exp }
   );
   return token;
+};
+
+export const validateToken = (token: string) => {
+  const secret = process.env.JWT_TOKEN_SECRET || 'secret';
+  try {
+    const tokenDecoded = jwt.verify(token, secret) as JwtPayload;
+
+    const userData = {
+      user: tokenDecoded.data,
+      iat: tokenDecoded.iat,
+      exp: tokenDecoded.exp,
+    };
+
+    return userData;
+  } catch (error) {
+    throw new Error('Invalid Token');
+  }
 };

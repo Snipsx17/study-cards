@@ -1,10 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-
-interface resBody {
-  message: string;
-  stack?: string;
-  error: boolean;
-}
+import { resBody } from '../types';
 
 export const errorHandler = (
   err: Error,

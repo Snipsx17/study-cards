@@ -1,19 +1,23 @@
 import { config } from 'dotenv';
 config();
+
 import { Router } from 'express';
-import { buildRequestValidator } from '../../middlewares/validator/buildRequestValidator';
-import { RequestValidatorAdapter } from '../../plugins/requestValidator.plugin';
 import {
+  buildRequestValidator,
   registerUserValidationSchema,
   loginUserLoginValidationSchema,
-} from '../../middlewares/validator/Schemas';
-import { generateSaltRounds } from '../../utils';
-import { DBClient } from '../../db/DBClient';
+} from '../../middlewares';
 import {
+  RequestValidatorAdapter,
   comparePassword,
   hashPassword,
-} from '../../plugins/passwordHash.plugin';
-import { TokenParams, createToken } from '../../plugins/jwt.plugin';
+  createToken,
+} from '../../plugins';
+
+import { generateSaltRounds } from '../../utils';
+import { DBClient } from '../../db/DBClient';
+import { TokenExpirationTimes, TokenParams } from '../../types';
+
 export const authRouter = Router();
 
 const requestValidatorMiddleware = buildRequestValidator(
@@ -83,13 +87,16 @@ authRouter.post(
         throw new Error(`Invalid username or password`);
       }
 
+      const expirationTime =
+        (process.env.EXPIRATION_TOKEN as TokenExpirationTimes) || '1h';
+
       const tokenParams: TokenParams = {
         data: {
           _id: String(userExist._id),
           username: userExist.username,
           email: userExist.email,
         },
-        exp: process.env.EXPIRATION_TOKEN || '1h',
+        exp: expirationTime,
       };
 
       const token = createToken(tokenParams);

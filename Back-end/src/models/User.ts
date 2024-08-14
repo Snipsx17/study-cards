@@ -1,10 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
+import { UserInterface } from '../types';
 
-interface UserInterface {
-  username: string;
-  email: string;
-  password: string;
-}
 const userSchema = new Schema<UserInterface>(
   {
     username: {

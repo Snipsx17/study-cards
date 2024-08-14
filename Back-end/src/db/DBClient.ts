@@ -1,12 +1,6 @@
-import mongoose from 'mongoose';
 import { User as userModel } from '../models';
 import { dbConnection } from './dbConnection';
-
-interface User {
-  username: string;
-  email: string;
-  password: string;
-}
+import { User } from '../types';
 
 export class DBClient {
   async connect(databaseUri: string) {

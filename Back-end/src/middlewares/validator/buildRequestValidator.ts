@@ -1,8 +1,6 @@
 import Joi from 'joi';
-import { RequestValidatorAdapter } from '../../plugins';
 import { NextFunction, Request, Response } from 'express';
-
-type RequestValidator = (req: Request, schema: Joi.ObjectSchema) => any;
+import { RequestValidator } from '../../types';
 
 export const buildRequestValidator = (validator: RequestValidator) => {
   return (schemaValidator: Joi.ObjectSchema) => {
@@ -12,8 +10,7 @@ export const buildRequestValidator = (validator: RequestValidator) => {
       } catch (error) {
         if (error instanceof Error) {
           res.status(400);
-          next({ message: error.message });
-          return;
+          throw new Error(error.message);
         }
       }
       next();

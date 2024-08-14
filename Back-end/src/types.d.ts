@@ -48,6 +48,18 @@ export interface User {
   password: string;
 }
 
+export interface CardInterface {
+  question: string;
+  response: string;
+  category: Schema.Types.ObjectId;
+  userId: Schema.Types.ObjectId;
+}
+
+export interface CategoryInterface {
+  name: string;
+  userId: Schema.Types.ObjectId;
+}
+
 export enum TokenExpirationTimes {
   '1H' = '1h',
   '2H' = '2h',

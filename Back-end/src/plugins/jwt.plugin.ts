@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 config();
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { TokenParams, User } from '../types';
 
 export const createToken = ({ data, exp }: TokenParams): string => {
@@ -18,9 +18,15 @@ export const createToken = ({ data, exp }: TokenParams): string => {
 export const validateToken = (token: string) => {
   const secret = process.env.JWT_TOKEN_SECRET || 'secret';
   try {
-    let decodedToken = jwt.verify(token, secret);
+    const tokenDecoded = jwt.verify(token, secret) as JwtPayload;
 
-    return decodedToken as User;
+    const userData = {
+      user: tokenDecoded.data,
+      iat: tokenDecoded.iat,
+      exp: tokenDecoded.exp,
+    };
+
+    return userData;
   } catch (error) {
     throw new Error('Invalid Token');
   }

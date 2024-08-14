@@ -26,8 +26,14 @@ export interface UserInterface {
   password: string;
 }
 
+export interface userDataFromToken {
+  user: User;
+  iat: number | undefined;
+  exp: number | undefined;
+}
+
 export interface RequestWithUser extends Request {
-  user?: User;
+  user?: userDataFromToken;
 }
 
 export interface resBody {

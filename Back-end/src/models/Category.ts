@@ -3,8 +3,13 @@ import { CategoryInterface } from '../types';
 
 const categorySchema = new Schema<CategoryInterface>(
   {
-    name: { type: 'string', index: true, required: true },
-    owner: { type: Schema.Types.ObjectId, index: true, ref: 'User' },
+    categories: { type: [String], index: true, required: true },
+    owner: {
+      type: Schema.Types.ObjectId,
+      index: true,
+      ref: 'User',
+      unique: true,
+    },
   },
   {
     timestamps: true,

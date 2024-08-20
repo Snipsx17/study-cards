@@ -1,10 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 import { CategoryInterface } from '../types';
 
-const cardSchema = new Schema<CategoryInterface>(
+const categorySchema = new Schema<CategoryInterface>(
   {
     name: { type: 'string', index: true, required: true },
-    userId: { type: Schema.Types.ObjectId, index: true, ref: 'User' },
+    owner: { type: Schema.Types.ObjectId, index: true, ref: 'User' },
   },
   {
     timestamps: true,
@@ -12,4 +12,7 @@ const cardSchema = new Schema<CategoryInterface>(
   }
 );
 
-export const Card = mongoose.model<CategoryInterface>('Card', cardSchema);
+export const Category = mongoose.model<CategoryInterface>(
+  'Category',
+  categorySchema
+);

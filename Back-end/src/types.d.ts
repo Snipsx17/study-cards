@@ -27,7 +27,11 @@ export interface UserInterface {
 }
 
 export interface userDataFromToken {
-  user: User;
+  user: {
+    _id: Schema.Types.ObjectId;
+    username: string;
+    email: string;
+  };
   iat: number | undefined;
   exp: number | undefined;
 }
@@ -52,12 +56,17 @@ export interface CardInterface {
   question: string;
   response: string;
   category: Schema.Types.ObjectId;
-  userId: Schema.Types.ObjectId;
+  owner: Schema.Types.ObjectId;
+}
+
+export interface NewCategory {
+  category: string;
+  owner: Schema.Types.ObjectId;
 }
 
 export interface CategoryInterface {
-  name: string;
-  userId: Schema.Types.ObjectId;
+  categories: string[];
+  owner: Schema.Types.ObjectId;
 }
 
 export enum TokenExpirationTimes {

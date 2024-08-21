@@ -1,6 +1,6 @@
-import { User as userModel, Category } from '../models';
+import { User as userModel, Category, Card } from '../models';
 import { dbConnection } from './dbConnection';
-import { NewCategory, User } from '../types';
+import { CardInterface, NewCategory, User } from '../types';
 import mongoose from 'mongoose';
 
 export class DBClient {
@@ -69,6 +69,22 @@ export class DBClient {
     } catch (error) {
       if (error instanceof Error)
         throw new Error(`Error adding category: ${error.message}`);
+    }
+  }
+
+  async createCard({ question, response, category, owner }: CardInterface) {
+    try {
+      const card = new Card({
+        question,
+        response,
+        category,
+        owner,
+      });
+
+      return await card.save();
+    } catch (error) {
+      if (error instanceof Error)
+        throw new Error(`Error creating card: ${error.message}`);
     }
   }
 }

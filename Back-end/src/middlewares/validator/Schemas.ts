@@ -11,3 +11,9 @@ export const loginUserLoginValidationSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
+
+export const newCardValidationSchema = Joi.object({
+  question: Joi.string().required(),
+  response: Joi.string().required(),
+  category: Joi.string().required(),
+});

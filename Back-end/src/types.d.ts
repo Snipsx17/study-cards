@@ -52,6 +52,13 @@ export interface User {
   password: string;
 }
 
+export interface validateUserInterface {
+  RequestEmail: string;
+  RequestPassword: string;
+  userEmail: string;
+  userPassword: string;
+}
+
 export interface CardInterface {
   question: string;
   response: string;

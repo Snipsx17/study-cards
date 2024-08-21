@@ -9,9 +9,9 @@ import {
 } from '../../../middlewares';
 import {
   RequestValidatorAdapter,
-  comparePassword,
   hashPassword,
   createToken,
+  validateUser,
 } from '../../../plugins';
 
 import { generateSaltRounds } from '../../../utils';
@@ -70,19 +70,28 @@ authRouter.post(
     const { email, password } = req.body;
     try {
       // check if the user exists
-      const userExist = await dbClient.findUserByEmail(email);
-      if (!userExist) {
+      const user = await dbClient.findUserByEmail(email);
+      if (!user) {
         res.status(404);
         throw new Error(`Invalid username or password`);
       }
 
-      // check the password
-      const isPasswordValid = await comparePassword(
-        password,
-        userExist.password
-      );
+      const data = {
+        RequestEmail: email,
+        RequestPassword: password,
+        userEmail: user.email,
+        userPassword: user.password,
+      };
 
-      if (!isPasswordValid) {
+      // check the password
+      const isValidUser = await validateUser({
+        RequestEmail: email,
+        RequestPassword: password,
+        userEmail: user.email,
+        userPassword: user.password,
+      });
+
+      if (!isValidUser) {
         res.status(404);
         throw new Error(`Invalid username or password`);
       }
@@ -92,9 +101,9 @@ authRouter.post(
 
       const tokenParams: TokenParams = {
         data: {
-          _id: String(userExist._id),
-          username: userExist.username,
-          email: userExist.email,
+          _id: String(user._id),
+          username: user.username,
+          email: user.email,
         },
         exp: expirationTime,
       };

@@ -69,6 +69,13 @@ export interface CategoryInterface {
   owner: Schema.Types.ObjectId;
 }
 
+export interface CardInterface {
+  question: string;
+  response: string;
+  category?: string;
+  owner: Schema.Types.ObjectId;
+}
+
 export enum TokenExpirationTimes {
   '1H' = '1h',
   '2H' = '2h',

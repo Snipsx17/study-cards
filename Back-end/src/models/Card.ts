@@ -14,4 +14,6 @@ const cardSchema = new Schema<CardInterface>(
   }
 );
 
+cardSchema.set('writeConcern', { wtimeout: 5000 });
+
 export const Card = mongoose.model<CardInterface>('Card', cardSchema);

@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { validateToken } from '../plugins';
 import { RequestWithUser, User } from '../types';
 

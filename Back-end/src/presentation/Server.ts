@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { loggerMiddleware, cookieParserMiddleware } from '../plugins';
-import { apiV1 } from '../v1';
+import { apiV1 } from '../routes';
 import { DBClient } from '../db/DBClient';
 import cors from 'cors';
 import { ServerOptions } from '../types';

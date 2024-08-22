@@ -1,5 +1,6 @@
 .prettierrc
 .vscode
+.env
 node_modules
 express-server-test
 Sin-título-2023-10-21-1602.excalidraw

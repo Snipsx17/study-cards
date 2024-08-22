@@ -9,9 +9,9 @@ import {
 } from '../../../middlewares';
 import {
   RequestValidatorAdapter,
-  comparePassword,
   hashPassword,
   createToken,
+  validateUser,
 } from '../../../plugins';
 
 import { generateSaltRounds } from '../../../utils';
@@ -70,38 +70,37 @@ authRouter.post(
     const { email, password } = req.body;
     try {
       // check if the user exists
-      const userExist = await dbClient.findUserByEmail(email);
-      if (!userExist) {
+      const user = await dbClient.findUserByEmail(email);
+      if (!user) {
         res.status(404);
         throw new Error(`Invalid username or password`);
       }
 
-      // check the password
-      const isPasswordValid = await comparePassword(
-        password,
-        userExist.password
-      );
+      const isValidUser = await validateUser({
+        RequestEmail: email,
+        RequestPassword: password,
+        userEmail: user.email,
+        userPassword: user.password,
+      });
 
-      if (!isPasswordValid) {
+      if (!isValidUser) {
         res.status(404);
         throw new Error(`Invalid username or password`);
       }
 
-      const expirationTime =
-        (process.env.EXPIRATION_TOKEN as TokenExpirationTimes) || '1h';
+      const refreshTokenExpiration =
+        process.env.EXPIRATION_REFRESH_TOKEN || '15d';
 
-      const tokenParams: TokenParams = {
+      const refreshToken = createToken({
         data: {
-          _id: String(userExist._id),
-          username: userExist.username,
-          email: userExist.email,
+          _id: String(user._id),
+          username: user.username,
+          email: user.email,
         },
-        exp: expirationTime,
-      };
+        exp: refreshTokenExpiration,
+      });
 
-      const token = createToken(tokenParams);
-
-      res.send({ token });
+      res.send({ refreshToken });
     } catch (error) {
       next(error);
     }

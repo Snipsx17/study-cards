@@ -9,18 +9,13 @@ export const hashPassword = (
   return bcrypt.hash(password, saltRounds);
 };
 
-export const validateUser = ({
-  RequestEmail,
-  RequestPassword,
+export const validateUser = async ({
+  requestEmail,
+  requestPassword,
   userEmail,
   userPassword,
 }: validateUserInterface): Promise<boolean> => {
-  return new Promise((resolve, reject) => {
-    bcrypt
-      .compare(RequestPassword, userPassword)
-      .then(() => {
-        RequestEmail === userEmail ? resolve(true) : reject(false);
-      })
-      .catch((err) => reject(err));
-  });
+  const isValidPassword = await bcrypt.compare(requestPassword, userPassword);
+  const isValidEmail = requestEmail === userEmail;
+  return isValidEmail && isValidPassword ? true : false;
 };

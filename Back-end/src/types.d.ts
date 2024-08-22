@@ -57,8 +57,8 @@ export interface User {
 }
 
 export interface validateUserInterface {
-  RequestEmail: string;
-  RequestPassword: string;
+  requestEmail: string;
+  requestPassword: string;
   userEmail: string;
   userPassword: string;
 }

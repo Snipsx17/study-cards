@@ -16,7 +16,6 @@ import {
 
 import { generateSaltRounds } from '../../../utils';
 import { DBClient } from '../../../db/DBClient';
-import { TokenExpirationTimes, TokenParams } from '../../../types';
 
 export const authRouter = Router();
 
@@ -77,8 +76,8 @@ authRouter.post(
       }
 
       const isValidUser = await validateUser({
-        RequestEmail: email,
-        RequestPassword: password,
+        requestEmail: email,
+        requestPassword: password,
         userEmail: user.email,
         userPassword: user.password,
       });
@@ -100,7 +99,13 @@ authRouter.post(
         exp: refreshTokenExpiration,
       });
 
-      res.send({ refreshToken });
+      res.cookie('refreshToken', refreshToken, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 15),
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+      });
+
+      res.send({ login: 'OK' });
     } catch (error) {
       next(error);
     }

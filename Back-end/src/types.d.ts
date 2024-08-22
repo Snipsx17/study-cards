@@ -20,6 +20,10 @@ export interface TokenParams {
   exp: TokenExpirationTimes;
 }
 
+export interface RefreshTokenParams extends TokenParams {
+  exp: string;
+}
+
 export interface UserInterface {
   username: string;
   email: string;

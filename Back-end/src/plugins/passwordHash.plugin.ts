@@ -23,8 +23,4 @@ export const validateUser = ({
       })
       .catch((err) => reject(err));
   });
-
-  // (
-  //
-  // );
 };

@@ -1,10 +1,10 @@
 import { config } from 'dotenv';
 config();
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { TokenParams, User } from '../types';
+import { RefreshTokenParams } from '../types';
 
-export const createToken = ({ data, exp }: TokenParams): string => {
-  const jwtSecret = process.env.JWT_TOKEN_SECRET || 'secret';
+export const createToken = ({ data, exp }: RefreshTokenParams): string => {
+  const jwtSecret = process.env.REFRESH_JWT_TOKEN_SECRET || 'secret';
   const token = jwt.sign(
     {
       data,

@@ -76,14 +76,6 @@ authRouter.post(
         throw new Error(`Invalid username or password`);
       }
 
-      const data = {
-        RequestEmail: email,
-        RequestPassword: password,
-        userEmail: user.email,
-        userPassword: user.password,
-      };
-
-      // check the password
       const isValidUser = await validateUser({
         RequestEmail: email,
         RequestPassword: password,
@@ -96,21 +88,19 @@ authRouter.post(
         throw new Error(`Invalid username or password`);
       }
 
-      const expirationTime =
-        (process.env.EXPIRATION_TOKEN as TokenExpirationTimes) || '1h';
+      const refreshTokenExpiration =
+        process.env.EXPIRATION_REFRESH_TOKEN || '15d';
 
-      const tokenParams: TokenParams = {
+      const refreshToken = createToken({
         data: {
           _id: String(user._id),
           username: user.username,
           email: user.email,
         },
-        exp: expirationTime,
-      };
+        exp: refreshTokenExpiration,
+      });
 
-      const token = createToken(tokenParams);
-
-      res.send({ token });
+      res.send({ refreshToken });
     } catch (error) {
       next(error);
     }

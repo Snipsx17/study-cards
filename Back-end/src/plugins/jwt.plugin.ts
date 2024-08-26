@@ -31,3 +31,20 @@ export const validateToken = (token: string) => {
     throw new Error('Invalid Token');
   }
 };
+
+export const validateRefreshToken = (token: string) => {
+  const secret = process.env.REFRESH_JWT_TOKEN_SECRET || 'secret';
+  try {
+    const tokenDecoded = jwt.verify(token, secret) as JwtPayload;
+
+    const userData = {
+      user: tokenDecoded.data,
+      iat: tokenDecoded.iat,
+      exp: tokenDecoded.exp,
+    };
+
+    return userData;
+  } catch (error) {
+    throw new Error('Invalid Token');
+  }
+};

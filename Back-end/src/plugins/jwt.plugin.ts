@@ -45,6 +45,6 @@ export const validateRefreshToken = (token: string) => {
 
     return userData;
   } catch (error) {
-    throw new Error('Invalid Token');
+    return null;
   }
 };

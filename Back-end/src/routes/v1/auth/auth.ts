@@ -12,6 +12,7 @@ import {
   hashPassword,
   createToken,
   validateUser,
+  validateRefreshToken,
 } from '../../../plugins';
 
 import { generateSaltRounds } from '../../../utils';
@@ -22,6 +23,7 @@ export const authRouter = Router();
 const requestValidatorMiddleware = buildRequestValidator(
   RequestValidatorAdapter.validate
 );
+
 const dbClient = new DBClient();
 
 authRouter.post(
@@ -68,7 +70,6 @@ authRouter.post(
   async (req, res, next) => {
     const { email, password } = req.body;
     try {
-      // check if the user exists
       const user = await dbClient.findUserByEmail(email);
       if (!user) {
         res.status(404);
@@ -101,8 +102,10 @@ authRouter.post(
 
       res.cookie('refreshToken', refreshToken, {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 15),
+
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
+        domain: process.env.REFRESH_TOKEN_DOMAIN || 'localhost',
       });
 
       res.send({ login: 'OK' });
@@ -111,3 +114,33 @@ authRouter.post(
     }
   }
 );
+
+authRouter.post('/refresh-token', async (req, res, next) => {
+  let { refreshToken } = req.cookies as { refreshToken: string };
+
+  const isValidToken = validateRefreshToken(refreshToken);
+
+  if (!isValidToken) {
+    res.status(401);
+    throw new Error('Invalid refresh token');
+  }
+
+  const { user } = isValidToken;
+  const userExists = await dbClient.findUserById(user._id);
+  if (!userExists) {
+    res.status(401);
+    throw new Error('User not found');
+  }
+
+  const refreshTokenExpiration = process.env.EXPIRATION_TOKEN || '15m';
+  const tokenJWT = createToken({
+    data: {
+      _id: String(user._id),
+      username: user.username,
+      email: user.email,
+    },
+    exp: refreshTokenExpiration,
+  });
+
+  res.send({ tokenJWT });
+});

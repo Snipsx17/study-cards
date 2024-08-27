@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "",
-    "build": "rimraf./dist && npx tsc",
+    "build": "rimraf ./dist && npx tsc",
     "dev": "nodemon"
   },
   "author": "Uberth Hernandez",

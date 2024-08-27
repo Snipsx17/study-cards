@@ -17,7 +17,7 @@ export interface TokenParams {
     username?: string;
     email?: string;
   };
-  exp: TokenExpirationTimes;
+  exp: string;
 }
 
 export interface TokenParams extends TokenParams {
@@ -85,14 +85,6 @@ export interface CardInterface {
   response: string;
   category?: string;
   owner: Schema.Types.ObjectId;
-}
-
-export enum TokenExpirationTimes {
-  '1H' = '1h',
-  '2H' = '2h',
-  '6H' = '6h',
-  '12H' = '12h',
-  '1D' = '1d',
 }
 
 export type RequestValidator = (req: Request, schema: Joi.ObjectSchema) => void;

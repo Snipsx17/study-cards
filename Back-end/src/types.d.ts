@@ -20,7 +20,7 @@ export interface TokenParams {
   exp: TokenExpirationTimes;
 }
 
-export interface RefreshTokenParams extends TokenParams {
+export interface TokenParams extends TokenParams {
   exp: string;
 }
 

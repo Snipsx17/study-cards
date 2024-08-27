@@ -13,6 +13,7 @@ import {
   createToken,
   validateUser,
   validateRefreshToken,
+  createRefreshToken,
 } from '../../../plugins';
 
 import { generateSaltRounds } from '../../../utils';
@@ -91,7 +92,7 @@ authRouter.post(
       const refreshTokenExpiration =
         process.env.EXPIRATION_REFRESH_TOKEN || '15d';
 
-      const refreshToken = createToken({
+      const refreshToken = createRefreshToken({
         data: {
           _id: String(user._id),
           username: user.username,
@@ -133,14 +134,14 @@ authRouter.post('/refresh-token', async (req, res, next) => {
       throw new Error('User not found');
     }
 
-    const refreshTokenExpiration = process.env.EXPIRATION_TOKEN || '15m';
+    const tokenExpiration = process.env.EXPIRATION_TOKEN || '15m';
     const tokenJWT = createToken({
       data: {
         _id: String(user._id),
         username: user.username,
         email: user.email,
       },
-      exp: refreshTokenExpiration,
+      exp: tokenExpiration,
     });
 
     res.send({ tokenJWT });

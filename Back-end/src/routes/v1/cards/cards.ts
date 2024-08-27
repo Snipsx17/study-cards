@@ -18,10 +18,27 @@ const requestValidatorMiddleware = buildRequestValidator(
 cardsRouter.get(
   '/getcards/:token?',
   validateTokenMiddleware,
-  (req: RequestWithUser, res, next) => {
+  async (req: RequestWithUser, res, next) => {
     const { user } = req.user || {};
+    try {
+      const userExists = await dbClient.findUserById(user?._id);
 
-    res.status(200).send(user);
+      if (!userExists) {
+        res.status(401);
+        throw new Error('Unauthorized');
+      }
+
+      const cards = await dbClient.getCards(String(userExists._id));
+
+      const responseData = {
+        user: { user: user?.username, email: user?.email },
+        cards,
+      };
+
+      res.send(responseData);
+    } catch (error) {
+      next({ message: `Error getting cards: ${error}` });
+    }
   }
 );
 

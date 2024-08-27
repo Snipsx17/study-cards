@@ -87,4 +87,16 @@ export class DBClient {
         throw new Error(`Error creating card: ${error.message}`);
     }
   }
+
+  async getCards(userId: string) {
+    try {
+      // consultar cards by id
+      const cards = await Card.find({ owner: userId });
+      // retornar cards
+      return cards;
+    } catch (error) {
+      if (error instanceof Error)
+        throw new Error('Error getting cards: ' + error.message);
+    }
+  }
 }

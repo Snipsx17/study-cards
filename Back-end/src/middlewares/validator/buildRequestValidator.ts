@@ -1,17 +1,17 @@
 import Joi from 'joi';
 import { NextFunction, Request, Response } from 'express';
-import { RequestValidator } from '../../types';
+import { validatorFunction } from './requestValidator';
 
-export const buildRequestValidator = (validator: RequestValidator) => {
-  return (schemaValidator: Joi.ObjectSchema) => {
+export const requestValidatorBuilder = () => {
+  return (validationSchema: Joi.ObjectSchema) => {
     return (req: Request, res: Response, next: NextFunction) => {
       try {
-        validator(req, schemaValidator);
-      } catch (error) {
-        if (error instanceof Error) {
-          res.status(400);
-          throw new Error(error.message);
+        const validation = validatorFunction(req, validationSchema);
+        if (validation.error) {
+          throw new Error(validation.error.details[0].message);
         }
+      } catch (error) {
+        next(error);
       }
       next();
     };

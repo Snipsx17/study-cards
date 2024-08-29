@@ -1,19 +1,16 @@
 import { Router } from 'express';
 import {
-  buildRequestValidator,
   newCardValidationSchema,
+  requestValidatorBuilder,
   validateTokenMiddleware,
 } from '../../../middlewares';
 import { RequestWithUser } from '../../../types';
 import { DBClient } from '../../../db/DBClient';
-import { RequestValidatorAdapter } from '../../../plugins';
 
 export const cardsRouter = Router();
 const dbClient = new DBClient();
 
-const requestValidatorMiddleware = buildRequestValidator(
-  RequestValidatorAdapter.validate
-);
+const requestValidate = requestValidatorBuilder();
 
 cardsRouter.get(
   '/getcards/:token?',
@@ -44,7 +41,7 @@ cardsRouter.get(
 
 cardsRouter.post(
   '/newcard/:token?',
-  requestValidatorMiddleware(newCardValidationSchema),
+  requestValidate(newCardValidationSchema),
   validateTokenMiddleware,
   async (req: RequestWithUser, res, next) => {
     const { question, response, category } = req.body;

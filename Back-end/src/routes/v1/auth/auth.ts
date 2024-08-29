@@ -3,12 +3,11 @@ config();
 
 import { Router } from 'express';
 import {
-  buildRequestValidator,
   registerUserValidationSchema,
   loginUserLoginValidationSchema,
+  requestValidatorBuilder,
 } from '../../../middlewares';
 import {
-  RequestValidatorAdapter,
   hashPassword,
   createToken,
   validateUser,
@@ -21,15 +20,13 @@ import { DBClient } from '../../../db/DBClient';
 
 export const authRouter = Router();
 
-const requestValidatorMiddleware = buildRequestValidator(
-  RequestValidatorAdapter.validate
-);
+const requestValidate = requestValidatorBuilder();
 
 const dbClient = new DBClient();
 
 authRouter.post(
   '/register',
-  requestValidatorMiddleware(registerUserValidationSchema),
+  requestValidate(registerUserValidationSchema),
   async (req, res, next) => {
     const { username, email, password } = req.body;
 
@@ -60,14 +57,13 @@ authRouter.post(
         });
     } catch (error) {
       next(error);
-      return;
     }
   }
 );
 
 authRouter.post(
   '/login',
-  requestValidatorMiddleware(loginUserLoginValidationSchema),
+  requestValidate(loginUserLoginValidationSchema),
   async (req, res, next) => {
     const { email, password } = req.body;
     try {
@@ -124,17 +120,18 @@ authRouter.post('/refresh-token', async (req, res, next) => {
 
     if (!isValidToken) {
       res.status(401);
-      throw new Error('Invalid refresh token..');
+      throw new Error('Invalid refresh token');
     }
 
     const { user } = isValidToken;
     const userExists = await dbClient.findUserById(user._id);
+
     if (!userExists) {
       res.status(401);
       throw new Error('User not found');
     }
 
-    const tokenExpiration = process.env.EXPIRATION_TOKEN || '15m';
+    const tokenExpiration = process.env.EXPIRATION_TOKEN || '2m';
     const tokenJWT = createToken({
       data: {
         _id: String(user._id),

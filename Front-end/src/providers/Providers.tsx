@@ -3,6 +3,7 @@ import { AuthContextProvider } from './auth/LoginContext';
 import { OverlayContextProvider } from './overlay/OverlayContext';
 import { AsideMenuContextProvider } from './asideMenu/AsideMenuContext';
 import { FC } from 'react';
+import { UserContextProvider } from './user/UserContext';
 
 interface Props {
   children: React.ReactNode;
@@ -13,7 +14,9 @@ export const Providers: FC<Props> = ({ children }) => {
   return (
     <AuthContextProvider initiallyLogged={isLogged}>
       <OverlayContextProvider>
-        <AsideMenuContextProvider>{children}</AsideMenuContextProvider>
+        <AsideMenuContextProvider>
+          <UserContextProvider>{children}</UserContextProvider>
+        </AsideMenuContextProvider>
       </OverlayContextProvider>
     </AuthContextProvider>
   );

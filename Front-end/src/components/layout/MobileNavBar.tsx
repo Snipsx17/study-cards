@@ -5,7 +5,7 @@ const NavMobile = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="md:hidden">
+    <div className="md:hidden z-10">
       <Hamburger color="#fff" toggled={isOpen} toggle={setIsOpen} size={35} />
       {
         <ul

@@ -24,7 +24,6 @@ export const Card: FC<Props> = ({
           <div className=" grow flex items-center justify-center">
             <p className="text-4xl">{question}</p>
           </div>
-
           <button
             className="bg-purpleButton w-full text-slate-50 text-4xl py-3 rounded-xl"
             onClick={() => clickHandler(id)}

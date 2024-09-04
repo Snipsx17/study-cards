@@ -9,7 +9,7 @@ export const AsideMenu = () => {
 
   return (
     <nav
-      className={`fixed w-[350px] h-full ${
+      className={`fixed w-[350px] h-full z-40 ${
         asideMenuIsVisible ? 'right-0' : '-right-[350px]'
       } top-0 bg-white text-center py-24 px-16 drop-shadow-lg transition-all`}
     >

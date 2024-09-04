@@ -15,7 +15,7 @@ const Overlay = ({ children }: Props) => {
     <>
       <div
         onClick={hideOverlay}
-        className={`w-screen h-full bg-black/50 absolute top-0 left-0 flex justify-center items-center`}
+        className={`w-screen h-full bg-black/50 absolute top-0 left-0 flex justify-center items-center z-50`}
       >
         <Modal onClose={hideOverlay}>{children}</Modal>
       </div>

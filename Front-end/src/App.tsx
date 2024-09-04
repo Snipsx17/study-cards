@@ -1,12 +1,13 @@
 import './App.css';
+import { CardsGrid } from './components/cards/CardsGrid';
 
-import Header from './components/layout/Header';
+import { Template } from './components/layout/Template';
 
 function App() {
   return (
-    <>
-      <Header />
-    </>
+    <Template>
+      <CardsGrid />
+    </Template>
   );
 }
 

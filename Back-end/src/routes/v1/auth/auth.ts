@@ -105,7 +105,7 @@ authRouter.post(
         domain: process.env.REFRESH_TOKEN_DOMAIN || 'localhost',
       });
 
-      res.send({ login: 'OK' });
+      res.send({ login: 'OK', userId: user._id });
     } catch (error) {
       next(error);
     }

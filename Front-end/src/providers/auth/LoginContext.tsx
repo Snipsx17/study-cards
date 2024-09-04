@@ -8,7 +8,7 @@ type Props = {
 
 type AuthContextType = {
   isLogged: boolean;
-  login: () => void;
+  login: (id: string) => void;
   logout: () => void;
 };
 
@@ -17,17 +17,17 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 export const AuthContextProvider = ({ children, initiallyLogged }: Props) => {
-  const [isLogged, setIsLogged] = useState(initiallyLogged);
+  const [isLogged, setIsLogged] = useState<boolean>(initiallyLogged);
 
   const authentication: AuthContextType = {
     isLogged,
-    login: () => {
+    login: (id: string) => {
       setIsLogged(true);
-      Storage.set('isLogged', true);
+      Storage.set('isLogged', id);
     },
     logout: () => {
       setIsLogged(false);
-      Storage.set('isLogged', false);
+      Storage.remove('isLogged');
     },
   };
 

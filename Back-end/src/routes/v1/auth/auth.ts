@@ -99,8 +99,7 @@ authRouter.post(
 
       res.cookie('refreshToken', refreshToken, {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 15),
-
-        httpOnly: true,
+        httpOnly: process.env.NODE_ENV === 'production',
         secure: process.env.NODE_ENV === 'production',
         domain: process.env.REFRESH_TOKEN_DOMAIN || 'localhost',
       });

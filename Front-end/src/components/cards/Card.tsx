@@ -5,7 +5,7 @@ interface Props {
   question: string;
   response: string;
   id: string;
-  clickHandler: (id: string | null) => void;
+  clickHandler: (id: string) => void;
   showIt?: boolean;
 }
 
@@ -41,7 +41,7 @@ export const Card: FC<Props> = ({
           </div>
           <button
             className="bg-purpleButton text-slate-50 text-4xl py-3 rounded-xl"
-            onClick={() => clickHandler(null)}
+            onClick={() => clickHandler('')}
           >
             Hide
           </button>

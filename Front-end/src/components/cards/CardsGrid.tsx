@@ -8,7 +8,6 @@ export const CardsGrid = () => {
   const [cardFlipped, setCardFlipped] = useState<string>('');
 
   const { isLogged } = useLogin() ?? {};
-  // const { getFetch, isFetching, error, data } = useFetch();
   const { loading, error, data: cards, fetchCards, setError } = useGetCards();
 
   const onClickHandler = (id: string) => {
@@ -32,8 +31,8 @@ export const CardsGrid = () => {
 
   return (
     <section className="grid md:grid-cols-cardsGrid2 xl:grid-cols-cardsGrid3 w-full gap-10">
-      <p>{error}</p>
-      <span>{loading && 'loading....'}</span>
+      {error && <p>{error}</p>}
+      {loading && <span>'loading....'</span>}
 
       {isLogged ? (
         cards?.cards?.map(({ response, question, _id }) => (

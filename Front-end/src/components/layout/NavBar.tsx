@@ -1,3 +1,4 @@
+import { useUserData } from '@/providers/user/UseUserData';
 import { useOverlayContext, useLogin } from '../../providers';
 import Button from '../UI/Button';
 import UserProfile from '../UI/UserProfile';
@@ -6,6 +7,8 @@ import { Login } from '../forms/Login';
 const NavBar = () => {
   const { isLogged } = useLogin() ?? {};
   const { showOverlay = () => {} } = useOverlayContext() ?? {};
+  const { user } = useUserData() ?? {};
+  console.log(user);
 
   return (
     <>
@@ -16,7 +19,7 @@ const NavBar = () => {
           onClick={() => showOverlay(<p>Create</p>)}
         />
         {isLogged ? (
-          <UserProfile userName="Uberth" />
+          <UserProfile userName={user as string} />
         ) : (
           <Button text="Login" onClick={() => showOverlay(<Login />)} />
         )}

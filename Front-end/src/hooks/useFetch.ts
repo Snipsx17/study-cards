@@ -43,7 +43,7 @@ export const useFetch = () => {
         method: method || 'GET',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: body && JSON.stringify(body),
       });
 
       if (!response.ok) {

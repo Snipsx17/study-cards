@@ -31,7 +31,7 @@ interface userDataState {
 
 export const useGetCards = () => {
   const [userData, setUserData] = useState<userDataState>({
-    loading: true,
+    loading: false,
     error: null,
     setError,
     data: null,

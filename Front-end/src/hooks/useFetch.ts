@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import Storage from '../utils/localStorage';
+import { useState } from 'react';
 
 type DataFetch = {
   [key: string]: any;
@@ -22,7 +21,7 @@ interface FetchI {
   isFetching: boolean;
   hasError: boolean;
   error: null | errorMessage;
-  getFetch: (url: string, method: requestMethods, body: {}) => Promise<void>;
+  getFetch: (url: string, method: requestMethods, body?: {}) => Promise<void>;
   setError: (errorMessage: string) => void;
 }
 
@@ -36,7 +35,7 @@ export const useFetch = () => {
     setError,
   });
 
-  async function getFetch(url: string, method: requestMethods, body: {}) {
+  async function getFetch(url: string, method: requestMethods, body?: {}) {
     try {
       setFetching();
       const response = await fetch(url, {

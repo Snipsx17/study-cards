@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useUserData } from '../providers/user/UseUserData';
 
 interface Card {
   _id: string;
@@ -38,6 +39,8 @@ export const useGetCards = () => {
     fetchCards,
   });
 
+  const { loadUserData = () => {} } = useUserData() ?? {};
+
   async function fetchCards(refreshToken: string) {
     try {
       setLoading();
@@ -52,6 +55,7 @@ export const useGetCards = () => {
 
       const cards = await data.json();
       setData(cards);
+      loadUserData(cards.user);
     } catch (error) {
       setError('Failed to get cards');
     }

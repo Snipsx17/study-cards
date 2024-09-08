@@ -14,7 +14,7 @@ export const Login = () => {
   useEffect(() => {
     if (!hasError && data) {
       hideOverlay();
-      login(data.id);
+      login(data.userId);
     }
   }, [hasError, data]);
 

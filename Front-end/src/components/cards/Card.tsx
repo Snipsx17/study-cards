@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import './Card.css';
 
 interface Props {
@@ -16,8 +16,6 @@ export const Card: FC<Props> = ({
   clickHandler,
   showIt,
 }) => {
-  const [show, setShow] = useState(false);
-
   return (
     <div className={`card-flip h-[250px] ${showIt ? 'flip' : ''}`}>
       <div className="card-flip-inner relative w-full h-full text-center">

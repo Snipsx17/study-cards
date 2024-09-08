@@ -24,7 +24,7 @@ export const Login = () => {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await getFetch('http://localhost:4000/api/v1/auth/login', 'get', formData);
+    await getFetch('http://localhost:4000/api/v1/auth/login', 'post', formData);
   };
 
   return (

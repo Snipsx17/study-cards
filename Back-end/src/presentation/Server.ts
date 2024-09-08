@@ -25,11 +25,11 @@ export class Server {
 
   start() {
     // public directory
+    this.app.use(cors({ origin: true, credentials: true }));
     this.app.use(express.static(this.publicDir));
     this.app.use(express.json());
     this.app.use(loggerMiddleware('dev'));
     this.app.use(cookieParserMiddleware());
-    this.app.use(cors());
 
     // db connection
     const dbClient = new DBClient();

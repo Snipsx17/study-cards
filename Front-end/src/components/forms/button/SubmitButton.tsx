@@ -13,9 +13,7 @@ export const SubmitButton = ({ children, onClick, isFetching }: Props) => {
   return (
     <>
       <button
-        // disabled={isFetching}
-        className={`w-[200px] h-16 rounded-full uppercase font-bold text-white px-[30px] py-[9.5px] bg-purple  text-xl m-4 box-border flex-initial  hover:bg-purple/90`}
-        // onClick={onClick}
+        className={`block w-[200px] h-16 rounded-full uppercase font-bold text-white px-[30px] py-[9.5px] bg-purple  text-xl mt-4 box-border flex-initial  hover:bg-purple/90 m-auto mb-10`}
       >
         {isFetching ? <Loader /> : children}
       </button>

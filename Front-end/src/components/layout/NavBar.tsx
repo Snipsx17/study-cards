@@ -8,7 +8,6 @@ const NavBar = () => {
   const { isLogged } = useLogin() ?? {};
   const { showOverlay = () => {} } = useOverlayContext() ?? {};
   const { user } = useUserData() ?? {};
-  console.log(user);
 
   return (
     <>

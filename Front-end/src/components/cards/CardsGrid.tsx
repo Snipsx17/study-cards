@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Card } from './Card';
 import { getTokenJwt } from '@/utils/getTokenJwt';
 import { useGetCards } from '@/hooks/useGetCards';
+import { StateMessage } from '../layout/StateMessage';
 
 export const CardsGrid = () => {
   const [cardFlipped, setCardFlipped] = useState<string>('');
@@ -30,24 +31,22 @@ export const CardsGrid = () => {
   }, [isLogged]);
 
   return (
-    <section className="grid md:grid-cols-cardsGrid2 xl:grid-cols-cardsGrid3 w-full gap-10">
-      {error && <p>{error}</p>}
-      {loading && <span>'loading....'</span>}
-
-      {isLogged ? (
-        cards?.cards?.map(({ response, question, _id }) => (
-          <Card
-            key={_id}
-            id={_id}
-            response={response}
-            question={question}
-            clickHandler={onClickHandler}
-            showIt={cardFlipped === _id}
-          />
-        ))
-      ) : (
-        <p>Create your first card...</p>
-      )}
-    </section>
+    <>
+      <StateMessage error={error} loading={loading} cards={!!cards} />
+      <section className="grid md:grid-cols-cardsGrid2 xl:grid-cols-cardsGrid3 w-full gap-10">
+        {isLogged &&
+          cards &&
+          cards?.cards?.map(({ response, question, _id }) => (
+            <Card
+              key={_id}
+              id={_id}
+              response={response}
+              question={question}
+              clickHandler={onClickHandler}
+              showIt={cardFlipped === _id}
+            />
+          ))}
+      </section>
+    </>
   );
 };

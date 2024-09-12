@@ -12,7 +12,7 @@ export const Modal = ({ children, onClose }: Props) => {
       onClick={(e) => e.stopPropagation()}
     >
       <span
-        className="absolute top-4 right-5 cursor-pointer text-3xl"
+        className="absolute top-6 right-8 cursor-pointer text-3xl"
         onClick={onClose}
       >
         X

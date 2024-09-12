@@ -19,9 +19,7 @@ const UserProfile = ({ userName }: Props) => {
           background: `#fff url(${logo}) no-repeat center`,
           backgroundSize: '25px',
         }}
-      >
-        <img src="" alt="" />
-      </span>
+      ></span>
     </div>
   );
 };

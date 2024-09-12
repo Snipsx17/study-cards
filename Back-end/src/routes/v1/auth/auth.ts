@@ -111,6 +111,19 @@ authRouter.post(
   }
 );
 
+authRouter.get('/logout', (req, res, next) => {
+  try {
+    res.clearCookie('refreshToken', {
+      httpOnly: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production',
+      domain: process.env.REFRESH_TOKEN_DOMAIN || 'localhost',
+    });
+    res.send({ logout: 'OK' });
+  } catch (error) {
+    next(error);
+  }
+});
+
 authRouter.post('/refresh-token', async (req, res, next) => {
   try {
     const { refreshToken } = req.cookies as { refreshToken: string };

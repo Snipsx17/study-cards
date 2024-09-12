@@ -1,4 +1,3 @@
-import { ReactComponentLike } from 'prop-types';
 import { ReactNode } from 'react';
 
 type Props = {

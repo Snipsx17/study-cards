@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Loader } from './Loader';
+import { Loader } from '../../UI/loader/Loader';
 
 type Props = {
   principal?: boolean;
@@ -9,7 +8,7 @@ type Props = {
   isFetching: boolean;
 };
 
-export const SubmitButton = ({ children, onClick, isFetching }: Props) => {
+export const SubmitButton = ({ children, isFetching }: Props) => {
   return (
     <>
       <button

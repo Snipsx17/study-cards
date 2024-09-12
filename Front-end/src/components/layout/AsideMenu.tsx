@@ -2,10 +2,12 @@
 import { useLogin } from '@/providers';
 import { useAsideMenuContext } from '@/providers/asideMenu/useContextAsideMenu';
 import LogoutIcon from '@/assets/logout-icon.svg?react';
+import { useFetch } from '@/hooks/useFetch';
 
 export const AsideMenu = () => {
   const { logout = () => {} } = useLogin() ?? {};
   const { hideAsideMenu, asideMenuIsVisible } = useAsideMenuContext();
+  const { isFetching, getFetch } = useFetch();
 
   return (
     <nav
@@ -21,7 +23,8 @@ export const AsideMenu = () => {
       </div>
       <ul>
         <li
-          onClick={() => {
+          onClick={async () => {
+            await getFetch('http://localhost:4000/api/v1/auth/logout', 'get');
             logout();
             hideAsideMenu();
           }}
@@ -30,6 +33,7 @@ export const AsideMenu = () => {
           <span className="text-3xl">Logout</span>
           <LogoutIcon width="20" />
         </li>
+        <li>{isFetching ? 'Login out...' : null}</li>
       </ul>
     </nav>
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useUserData } from '../providers/user/UseUserData';
+import { useUserData } from '@/providers/user/UseUserData';
 
 interface Card {
   _id: string;
@@ -25,18 +25,19 @@ interface userData {
 interface userDataState {
   loading: boolean;
   error: null | string;
-  setError: (error: string) => void;
   data: null | userData;
+}
+
+interface userCardsI extends userDataState {
+  setError: (error: string) => void;
   fetchCards: (refreshToken: string) => Promise<void>;
 }
 
-export const useGetCards = () => {
+export const useGetCards = (): userCardsI => {
   const [userData, setUserData] = useState<userDataState>({
     loading: false,
     error: null,
-    setError,
     data: null,
-    fetchCards,
   });
 
   const { loadUserData = () => {} } = useUserData() ?? {};
@@ -62,12 +63,14 @@ export const useGetCards = () => {
   }
 
   function setError(error: string) {
-    setUserData({ ...userData, error });
+    setUserData({ loading: false, error, data: null });
   }
 
-  const setLoading = () => setUserData({ ...userData, loading: true });
+  const setLoading = () =>
+    setUserData({ loading: true, error: null, data: null });
+
   const setData = (newState: userData) =>
     setUserData({ ...userData, data: newState });
 
-  return userData;
+  return { ...userData, setError, fetchCards };
 };

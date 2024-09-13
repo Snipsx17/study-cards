@@ -1,13 +1,13 @@
 /// <reference types="vite-plugin-svgr/client" />
-import { useLogin } from '@/providers';
 import { useAsideMenuContext } from '@/providers/asideMenu/useContextAsideMenu';
 import LogoutIcon from '@/assets/logout-icon.svg?react';
 import { useFetch } from '@/hooks/useFetch';
+import { useLogin } from '@/providers';
 
 export const AsideMenu = () => {
+  const { asideMenuIsVisible, hideAsideMenu } = useAsideMenuContext();
+  const { isFetching } = useFetch();
   const { logout = () => {} } = useLogin() ?? {};
-  const { hideAsideMenu, asideMenuIsVisible } = useAsideMenuContext();
-  const { isFetching, getFetch } = useFetch();
 
   return (
     <nav
@@ -24,8 +24,7 @@ export const AsideMenu = () => {
       <ul>
         <li
           onClick={async () => {
-            await getFetch('http://localhost:4000/api/v1/auth/logout', 'get');
-            logout();
+            await logout();
             hideAsideMenu();
           }}
           className="flex justify-center gap-4 cursor-pointer"

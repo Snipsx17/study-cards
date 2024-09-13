@@ -1,5 +1,5 @@
 import { AsideMenu } from './AsideMenu';
-import NavMobile from './MobileNavBar';
+import NavMobile from './mobile/MobileNavBar';
 import NavBar from './NavBar';
 
 export const Menu = () => {

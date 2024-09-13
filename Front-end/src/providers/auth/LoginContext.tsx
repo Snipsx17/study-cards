@@ -1,3 +1,4 @@
+import { useFetch } from '@/hooks/useFetch';
 import Storage from '@/utils/localStorage';
 import { ReactNode, createContext, useState } from 'react';
 
@@ -18,6 +19,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 
 export const AuthContextProvider = ({ children, initiallyLogged }: Props) => {
   const [isLogged, setIsLogged] = useState<boolean>(initiallyLogged);
+  const { getFetch } = useFetch();
 
   const authentication: AuthContextType = {
     isLogged,
@@ -25,9 +27,10 @@ export const AuthContextProvider = ({ children, initiallyLogged }: Props) => {
       setIsLogged(true);
       Storage.set('isLogged', id);
     },
-    logout: () => {
-      setIsLogged(false);
+    logout: async () => {
+      await getFetch('http://localhost:4000/api/v1/auth/logout', 'get');
       Storage.remove('isLogged');
+      setIsLogged(false);
     },
   };
 

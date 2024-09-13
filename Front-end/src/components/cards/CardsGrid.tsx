@@ -32,11 +32,11 @@ export const CardsGrid = () => {
 
   return (
     <>
-      <StateMessage error={error} loading={loading} cards={!!cards} />
+      <StateMessage error={error} loading={loading} cards={!!cards?.length} />
       <section className="grid md:grid-cols-cardsGrid2 xl:grid-cols-cardsGrid3 w-full gap-10">
         {isLogged &&
           cards &&
-          cards?.cards?.map(({ response, question, _id }) => (
+          cards?.map(({ response, question, _id }) => (
             <Card
               key={_id}
               id={_id}

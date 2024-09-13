@@ -22,19 +22,19 @@ interface userData {
   cards: Card[];
 }
 
-interface userDataState {
+interface getCardsState {
   loading: boolean;
   error: null | string;
-  data: null | userData;
+  data: null | Card[];
 }
 
-interface userCardsI extends userDataState {
+interface userCardsI extends getCardsState {
   setError: (error: string) => void;
   fetchCards: (refreshToken: string) => Promise<void>;
 }
 
 export const useGetCards = (): userCardsI => {
-  const [userData, setUserData] = useState<userDataState>({
+  const [userData, setUserData] = useState<getCardsState>({
     loading: false,
     error: null,
     data: null,
@@ -45,18 +45,18 @@ export const useGetCards = (): userCardsI => {
   async function fetchCards(refreshToken: string) {
     try {
       setLoading();
-      const data = await fetch(
+      const response = await fetch(
         `http://localhost:4000/api/v1/card/getcards?token=${refreshToken}`
       );
 
-      if (!data.ok) {
+      if (!response.ok) {
         setError('Error getting cards');
         return;
       }
 
-      const cards = await data.json();
-      setData(cards);
-      loadUserData(cards.user);
+      const data: userData = await response.json();
+      setCards(data.cards);
+      loadUserData(data.user);
     } catch (error) {
       setError('Failed to get cards');
     }
@@ -69,8 +69,8 @@ export const useGetCards = (): userCardsI => {
   const setLoading = () =>
     setUserData({ loading: true, error: null, data: null });
 
-  const setData = (newState: userData) =>
-    setUserData({ ...userData, data: newState });
+  const setCards = (cards: Card[]) =>
+    setUserData({ data: cards, error: null, loading: false });
 
   return { ...userData, setError, fetchCards };
 };

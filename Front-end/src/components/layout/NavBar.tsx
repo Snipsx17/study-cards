@@ -3,6 +3,7 @@ import { useOverlayContext, useLogin } from '../../providers';
 import Button from '../UI/Button';
 import UserProfile from '../UI/UserProfile';
 import { Login } from '../forms/Login';
+import { CreateCardForm } from '../forms/CreateCardForm';
 
 const NavBar = () => {
   const { isLogged } = useLogin() ?? {};
@@ -15,7 +16,7 @@ const NavBar = () => {
         <Button
           text="Create"
           principal
-          onClick={() => showOverlay(<p>Create</p>)}
+          onClick={() => showOverlay(<CreateCardForm />)}
         />
         {isLogged ? (
           <UserProfile userName={user as string} />

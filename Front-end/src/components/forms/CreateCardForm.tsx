@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { SubmitButton } from './button/SubmitButton';
 import { Input } from './Input';
 import QuestionIcon from '@/assets/question-solid.svg?react';
-// import { useFetch } from '@/hooks/useFetch';
+import { useFetch } from '@/hooks/useFetch';
 import { TextArea } from './TextArea';
 import { CategorySelector } from './CategorySelector';
+import { Message } from '../UI/Message';
 
 export const CreateCardForm = () => {
   const [formData, setFormData] = useState({ question: '', answer: '' });
-  //   const { data, isFetching, hasError, error, getFetch } = useFetch();
+  const { data, isFetching, hasError, error, getFetch } = useFetch();
 
   const onchange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -16,10 +17,19 @@ export const CreateCardForm = () => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await getFetch(
+      'http://localhost:4000/api/v1/cards/create',
+      'post',
+      formData
+    );
+  };
+
   return (
     <div className="m-12 mb-20">
       <h3 className="text-center text-4xl font-bold py-10">Create new card</h3>
-      <form>
+      <form onSubmit={onSubmit}>
         <Input
           type="text"
           name="question"
@@ -39,7 +49,8 @@ export const CreateCardForm = () => {
           categories={['frances', 'ingles', 'aws']}
           label="Category"
         />
-        <SubmitButton isFetching={false} type="submit">
+        {hasError && <Message>{error?.message}</Message>}
+        <SubmitButton isFetching={true} type="submit">
           Create
         </SubmitButton>
       </form>

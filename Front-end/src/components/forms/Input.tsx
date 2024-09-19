@@ -29,7 +29,9 @@ export const Input = ({ type, label, value, onChange, name, Icon }: Props) => {
           onChange={onChange}
           autoComplete="email"
           required
-          className="block w-[300px] text-2xl pl-10 border-b-[1px] border-[purple]/50 p-3 text-gray-900 ring-[purple] placeholder:text-gray-400 outline-none focus:border-[purple] focus:border-b-2"
+          className={`block w-[300px] text-2xl ${
+            Icon ? 'pl-10' : null
+          } border-b-[1px] border-[purple]/50 p-3 text-gray-900 ring-[purple] placeholder:text-gray-400 outline-none focus:border-[purple] focus:border-b-2`}
         />
       </div>
     </div>

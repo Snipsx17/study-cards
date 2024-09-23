@@ -1,12 +1,13 @@
-import logo from '@/assets/user-avatar.png';
+import { FC } from 'react';
+
 import { useAsideMenuContext } from '@/providers/asideMenu/useContextAsideMenu';
 
-type Props = {
-  userName: string;
-};
+import { MenuContext, UserProfileProps } from '@/@types/types';
 
-const UserProfile = ({ userName }: Props) => {
-  const { showAsideMenu } = useAsideMenuContext() ?? {};
+import avatar from '@/assets/user-avatar.png';
+
+export const UserProfile: FC<UserProfileProps> = ({ userName }) => {
+  const { showAsideMenu } = useAsideMenuContext() as MenuContext;
   return (
     <div
       onClick={showAsideMenu}
@@ -16,12 +17,10 @@ const UserProfile = ({ userName }: Props) => {
       <span
         className="rounded-full w-14 h-14 bg-auto bg-white"
         style={{
-          background: `#fff url(${logo}) no-repeat center`,
+          background: `#fff url(${avatar}) no-repeat center`,
           backgroundSize: '25px',
         }}
       ></span>
     </div>
   );
 };
-
-export default UserProfile;

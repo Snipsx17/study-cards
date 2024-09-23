@@ -1,13 +1,17 @@
 /// <reference types="vite-plugin-svgr/client" />
+
 import { useAsideMenuContext } from '@/providers/asideMenu/useContextAsideMenu';
-import LogoutIcon from '@/assets/logout-icon.svg?react';
-import { useFetch } from '@/hooks/useFetch';
 import { useLogin } from '@/providers';
+import { useFetch } from '@/hooks/useFetch';
+
+import { AuthContextType } from '@/@types/types';
+
+import LogoutIcon from '@/assets/logout-icon.svg?react';
 
 export const AsideMenu = () => {
   const { asideMenuIsVisible, hideAsideMenu } = useAsideMenuContext();
   const { isFetching } = useFetch();
-  const { logout = () => {} } = useLogin() ?? {};
+  const { logout } = useLogin() as AuthContextType;
 
   return (
     <nav

@@ -1,12 +1,13 @@
-type Props = {
-  principal?: boolean;
-  text: string;
-  styles?: string;
-  type?: string;
-  onClick?: () => void;
-};
+import { FC } from 'react';
 
-const Button = ({ text, principal = false, onClick, styles }: Props) => {
+import { ButtonProps } from '@/@types/types';
+
+export const Button: FC<ButtonProps> = ({
+  text,
+  principal = false,
+  onClick,
+  styles,
+}) => {
   return (
     <>
       <button
@@ -23,5 +24,3 @@ const Button = ({ text, principal = false, onClick, styles }: Props) => {
     </>
   );
 };
-
-export default Button;

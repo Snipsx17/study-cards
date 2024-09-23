@@ -1,15 +1,18 @@
 import { FormEvent, useState } from 'react';
+
+import { useFetch } from '@/hooks/useFetch';
+
 import { SubmitButton } from './button/SubmitButton';
 import { Input } from './Input';
-import QuestionIcon from '@/assets/question-solid.svg?react';
-import { useFetch } from '@/hooks/useFetch';
 import { TextArea } from './TextArea';
 import { CategorySelector } from './CategorySelector';
 import { Message } from '../UI/Message';
 
+import QuestionIcon from '@/assets/question-solid.svg?react';
+
 export const CreateCardForm = () => {
   const [formData, setFormData] = useState({ question: '', answer: '' });
-  const { data, isFetching, hasError, error, getFetch } = useFetch();
+  const { hasError, error, getFetch } = useFetch();
 
   const onchange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -19,11 +22,9 @@ export const CreateCardForm = () => {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await getFetch(
-      'http://localhost:4000/api/v1/cards/create',
-      'post',
-      formData
-    );
+    const url = 'http://localhost:4000/api/v1/cards/create';
+    ('post');
+    await getFetch(url, 'post', formData);
   };
 
   return (

@@ -1,15 +1,14 @@
 import { FC } from 'react';
 
-type Props = {
-  placeHolder?: string;
-  label?: string;
-  value: string;
-  name: string;
-  size: number;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-};
+import { TextAreaProps } from '@/@types/types';
 
-export const TextArea: FC<Props> = ({ label, value, name, size, onChange }) => {
+export const TextArea: FC<TextAreaProps> = ({
+  label,
+  value,
+  name,
+  size,
+  onChange,
+}) => {
   return (
     <div>
       <label

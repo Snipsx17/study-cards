@@ -1,15 +1,10 @@
 import { FC } from 'react';
+
+import { CardProps } from '@/@types/types';
+
 import './Card.css';
 
-interface Props {
-  question: string;
-  response: string;
-  id: string;
-  clickHandler: (id: string) => void;
-  showIt?: boolean;
-}
-
-export const Card: FC<Props> = ({
+export const Card: FC<CardProps> = ({
   question,
   response,
   id,

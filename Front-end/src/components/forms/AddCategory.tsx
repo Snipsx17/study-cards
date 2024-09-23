@@ -1,14 +1,17 @@
 import { useState } from 'react';
+
+import { useOverlayContext } from '@/providers';
+
+import { CreateCardForm } from './CreateCardForm';
 import { SubmitButton } from './button/SubmitButton';
 import { Input } from './Input';
+
 import ArrowBack from '@/assets/arrow-left-solid.svg?react';
-import { useOverlayContext } from '@/providers';
-import { CreateCardForm } from './CreateCardForm';
-import { instanceOf } from 'prop-types';
+import { OverlayProviderProps } from '@/@types/types';
 
 export const AddCategory = () => {
   const [formData, setFormData] = useState({ category: '' });
-  const { showOverlay = () => {} } = useOverlayContext() ?? {};
+  const { showOverlay } = useOverlayContext() as OverlayProviderProps;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -16,7 +19,6 @@ export const AddCategory = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     showOverlay(<CreateCardForm />);
   };
 

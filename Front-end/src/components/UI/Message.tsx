@@ -1,8 +1,6 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
-interface MessageProp {
-  children: ReactNode;
-}
+import { MessageProp } from '@/@types/types';
 
 export const Message: FC<MessageProp> = ({ children }) => {
   return <span className="text-sm text-[purple]">{children}</span>;

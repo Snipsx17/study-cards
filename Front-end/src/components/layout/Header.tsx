@@ -1,15 +1,16 @@
 /// <reference types="vite-plugin-svgr/client" />
 
-import '../../App.css';
 import { useOverlayContext } from '../../providers/overlay/useOverlay';
 
-import Overlay from '../UI/Overlay';
+import { Overlay } from '../UI/Overlay';
 import { Menu } from './Menu';
+
+import { OverlayProviderProps } from '@/@types/types';
 
 import Logo from '@/assets/logo.svg?react';
 
-const Header = () => {
-  const { content, isVisible } = useOverlayContext() ?? {};
+export const Header = () => {
+  const { content, isVisible } = useOverlayContext() as OverlayProviderProps;
 
   return (
     <>
@@ -21,5 +22,3 @@ const Header = () => {
     </>
   );
 };
-
-export default Header;

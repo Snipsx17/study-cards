@@ -1,14 +1,13 @@
+import { FC } from 'react';
+
 import { Loader } from '../../UI/loader/Loader';
 
-type Props = {
-  principal?: boolean;
-  children: string;
-  type?: string;
-  onClick?: () => void;
-  isFetching?: boolean;
-};
+import { SubmitButtonProps } from '@/@types/types';
 
-export const SubmitButton = ({ children, isFetching }: Props) => {
+export const SubmitButton: FC<SubmitButtonProps> = ({
+  children,
+  isFetching,
+}) => {
   return (
     <>
       <button

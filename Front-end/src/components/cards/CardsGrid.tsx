@@ -1,15 +1,25 @@
-import { useLogin } from '@/providers/auth/UseLogin';
 import { useEffect, useState } from 'react';
-import { Card } from './Card';
+
+import { useLogin } from '@/providers/auth/UseLogin';
 import { getTokenJwt } from '@/utils/getTokenJwt';
 import { useGetCards } from '@/hooks/useGetCards';
-import { StateMessage } from '../layout/StateMessage';
+
+import { Card } from './Card';
+import { StateMessage } from '@/components/layout/StateMessage';
+
+import { AuthContextType } from '@/@types/types';
 
 export const CardsGrid = () => {
   const [cardFlipped, setCardFlipped] = useState<string>('');
 
-  const { isLogged } = useLogin() ?? {};
+  const { isLogged } = useLogin() as AuthContextType;
   const { loading, error, data: cards, fetchCards, setError } = useGetCards();
+
+  useEffect(() => {
+    if (isLogged) {
+      getCards();
+    }
+  }, [isLogged]);
 
   const onClickHandler = (id: string) => {
     setCardFlipped(id);
@@ -23,12 +33,6 @@ export const CardsGrid = () => {
       if (error instanceof Error) setError(error.message);
     }
   };
-
-  useEffect(() => {
-    if (isLogged) {
-      getCards();
-    }
-  }, [isLogged]);
 
   return (
     <>

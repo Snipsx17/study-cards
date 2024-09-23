@@ -1,14 +1,15 @@
-import { useOverlayContext } from '@/providers';
 import { FC } from 'react';
+
+import { useOverlayContext } from '@/providers';
+import { CategorySelectorProps, OverlayProviderProps } from '@/@types/types';
+
 import { AddCategory } from './AddCategory';
 
-interface Props {
-  label: string;
-  categories: string[];
-}
-
-export const CategorySelector: FC<Props> = ({ categories, label }) => {
-  const { showOverlay = () => {} } = useOverlayContext() ?? {};
+export const CategorySelector: FC<CategorySelectorProps> = ({
+  categories,
+  label,
+}) => {
+  const { showOverlay } = useOverlayContext() as OverlayProviderProps;
   return (
     <div>
       <label

@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
-interface Props {
-  error: string | null;
-  loading: boolean;
-  cards: boolean;
-}
+import { StateMessageProps } from '@/@types/types';
 
-export const StateMessage: FC<Props> = ({ error, loading, cards }) => {
+export const StateMessage: FC<StateMessageProps> = ({
+  error,
+  loading,
+  cards,
+}) => {
   return (
     <section>
       {error && (

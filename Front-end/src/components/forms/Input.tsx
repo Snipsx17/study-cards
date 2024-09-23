@@ -1,16 +1,15 @@
-import { ReactNode } from 'react';
+import { FC } from 'react';
 
-type Props = {
-  type: string;
-  placeHolder?: string;
-  label?: string;
-  value: string;
-  name: string;
-  Icon?: ReactNode;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import { InputProps } from '@/@types/types';
 
-export const Input = ({ type, label, value, onChange, name, Icon }: Props) => {
+export const Input: FC<InputProps> = ({
+  type,
+  label,
+  value,
+  onChange,
+  name,
+  Icon,
+}) => {
   return (
     <div className="pb-5">
       <label

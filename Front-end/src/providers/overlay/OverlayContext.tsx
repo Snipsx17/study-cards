@@ -1,15 +1,6 @@
 import { createContext, FC, ReactNode, useState } from 'react';
 
-interface OverlayContextProps {
-  isVisible: boolean;
-  content: ReactNode | null;
-}
-
-// !! remove null
-export interface OverlayProviderProps extends OverlayContextProps {
-  showOverlay: (content: ReactNode) => void;
-  hideOverlay: () => void;
-}
+import { OverlayContextProps, OverlayProviderProps } from '@/@types/types';
 
 export const OverlayContext = createContext<OverlayProviderProps | null>(null);
 

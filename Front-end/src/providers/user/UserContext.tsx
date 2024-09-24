@@ -1,13 +1,6 @@
 import { createContext, FC, useState } from 'react';
 
-interface User {
-  user: string | null;
-}
-
-export interface UserContextProps {
-  user: string | null;
-  loadUserData?: (user: { user: string }) => void;
-}
+import { User, UserContextProps } from '@/@types/types';
 
 export const userContext = createContext<UserContextProps | null>(null);
 

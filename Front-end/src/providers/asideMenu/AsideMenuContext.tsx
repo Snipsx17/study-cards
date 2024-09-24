@@ -1,18 +1,12 @@
 import { createContext, FC, ReactNode, useState } from 'react';
 
-interface Props {
-  children: ReactNode;
-}
+import { MenuContext } from '@/@types/types';
 
-export interface menuContextI {
-  showAsideMenu: () => void;
-  hideAsideMenu: () => void;
-  asideMenuIsVisible: boolean;
-}
+export const asideMenuContext = createContext<null | MenuContext>(null);
 
-export const asideMenuContext = createContext<null | menuContextI>(null);
-
-export const AsideMenuContextProvider: FC<Props> = ({ children }) => {
+export const AsideMenuContextProvider: FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [asideMenuIsVisible, setAsideMenuIsVisible] = useState<boolean>(false);
   const showAsideMenu = () => setAsideMenuIsVisible(true);
   const hideAsideMenu = () => setAsideMenuIsVisible(false);

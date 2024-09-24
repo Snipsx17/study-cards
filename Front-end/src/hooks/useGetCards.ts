@@ -1,37 +1,8 @@
 import { useState } from 'react';
+
 import { useUserData } from '@/providers/user/UseUserData';
 
-interface Card {
-  _id: string;
-  question: string;
-  response: string;
-  category: string;
-  owner: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
-
-interface User {
-  user: string | null;
-  email: string | null;
-}
-
-interface userData {
-  user: User;
-  cards: Card[];
-}
-
-interface getCardsState {
-  loading: boolean;
-  error: null | string;
-  data: null | Card[];
-}
-
-interface userCardsI extends getCardsState {
-  setError: (error: string) => void;
-  fetchCards: (refreshToken: string) => Promise<void>;
-}
+import { Card, getCardsState, userCardsI, userData } from '../@types/types';
 
 export const useGetCards = (): userCardsI => {
   const [userData, setUserData] = useState<getCardsState>({

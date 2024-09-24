@@ -1,10 +1,8 @@
 import { FC } from 'react';
 
-interface Props {
-  userName: string;
-}
+import { UserNameProps } from '@/@types/types';
 
-export const UserName: FC<Props> = ({ userName }) => {
+export const UserName: FC<UserNameProps> = ({ userName }) => {
   return (
     <div>
       <span className="block font-bold text-4xl uppercase mb-5">{`👋 ${userName}`}</span>

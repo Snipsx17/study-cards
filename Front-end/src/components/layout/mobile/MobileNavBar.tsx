@@ -1,16 +1,23 @@
+import { useState } from 'react';
+
 import { useLogin, useOverlayContext } from '@/providers';
 import { useUserData } from '@/providers/user/UseUserData';
+
 import { Fade as Hamburger } from 'hamburger-react';
-import { useState } from 'react';
 import { Login } from '../../forms/Login';
 import { UserName } from './UserName';
 
-const NavMobile = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { showOverlay = () => {} } = useOverlayContext() ?? {};
-  const { user } = useUserData() ?? {};
-  const { isLogged } = useLogin() ?? {};
-  const { logout = () => {} } = useLogin() ?? {};
+import {
+  AuthContextType,
+  OverlayProviderProps,
+  UserContextProps,
+} from '@/@types/types';
+
+export const NavMobile = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { showOverlay } = useOverlayContext() as OverlayProviderProps;
+  const { user } = useUserData() as UserContextProps;
+  const { isLogged, logout } = useLogin() as AuthContextType;
 
   return (
     <div className="md:hidden z-10">
@@ -60,5 +67,3 @@ const NavMobile = () => {
     </div>
   );
 };
-
-export default NavMobile;

@@ -1,14 +1,11 @@
+
+import { OverlayProps, OverlayProviderProps } from '@/@types/types';
 import { useOverlayContext } from '../../providers/overlay/useOverlay';
 import { Modal } from './Modal';
+import { FC } from 'react';
 
-type Props = {
-  visible: boolean;
-  handleClick?: (isVisible: boolean) => void;
-  children?: React.ReactNode;
-};
-
-const Overlay = ({ children }: Props) => {
-  const { hideOverlay = () => {} } = useOverlayContext() ?? {};
+export const Overlay: FC<OverlayProps> = ({ children }) => {
+  const { hideOverlay } = useOverlayContext() as OverlayProviderProps;
 
   return (
     <>
@@ -21,5 +18,3 @@ const Overlay = ({ children }: Props) => {
     </>
   );
 };
-
-export default Overlay;

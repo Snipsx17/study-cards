@@ -1,54 +1,23 @@
 import { createContext, FC, useState } from 'react';
 
-interface Card {
-  _id: string;
-  question: string;
-  response: string;
-  category: string;
-  owner: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
+import { User, UserContextProps } from '@/@types/types';
 
-interface User {
-  user: string | null;
-  email: string | null;
-}
-
-interface UserDataI {
-  user: User | null;
-  cards: Card[] | null;
-}
-
-export interface UserContextProps {
-  user: User | null;
-  cards: Card[] | null;
-  loadUserData?: (data: UserDataI) => void;
-}
-
-// crear context
 export const userContext = createContext<UserContextProps | null>(null);
 
-// crear provider para el context
 export const UserContextProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [userData, setDataUser] = useState<UserDataI>({
+  const [userData, setDataUser] = useState<User>({
     user: null,
-    cards: null,
   });
 
-  const loadUserData = async (data: UserDataI) => {
-    setDataUser(data);
+  const loadUserData = async (user: User) => {
+    setDataUser(user);
   };
 
   return (
-    <userContext.Provider
-      value={{ user: userData.user, cards: userData.cards, loadUserData }}
-    >
+    <userContext.Provider value={{ user: userData.user, loadUserData }}>
       {children}
     </userContext.Provider>
   );
 };
-// crear customHook para el context

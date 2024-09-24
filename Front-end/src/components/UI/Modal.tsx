@@ -8,7 +8,7 @@ type Props = {
 export const Modal = ({ children, onClose }: Props) => {
   return (
     <div
-      className=" bg-white rounded-md relative"
+      className=" bg-white rounded-md relative ease-in-out duration-300"
       onClick={(e) => e.stopPropagation()}
     >
       <span

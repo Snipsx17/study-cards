@@ -1,18 +1,25 @@
 /// <reference types="vite-plugin-svgr/client" />
 import { FormEvent, useEffect, useState } from 'react';
-import { Input } from './Input';
+
 import { useFetch } from '../../hooks/useFetch';
 import { useOverlayContext, useLogin } from '../../providers';
+
+import { Input } from './Input';
 import { SubmitButton } from './button/SubmitButton';
 import { Message } from '../UI/Message';
+import UserIcon from '@/assets/user-solid.svg?react';
+import LockIcon from '@/assets/lock-solid.svg?react';
+
+import { AuthContextType, OverlayProviderProps } from '@/@types/types';
+
 import UserIcon from '@/assets/user-solid.svg?react';
 import LockIcon from '@/assets/lock-solid.svg?react';
 
 export const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const { data, isFetching, hasError, error, getFetch } = useFetch();
-  const { hideOverlay = () => {} } = useOverlayContext() ?? {};
-  const { login = () => {} } = useLogin() ?? {};
+  const { hideOverlay } = useOverlayContext() as OverlayProviderProps;
+  const { login } = useLogin() as AuthContextType;
 
   useEffect(() => {
     if (!hasError && data) {
@@ -27,7 +34,8 @@ export const Login = () => {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await getFetch('http://localhost:4000/api/v1/auth/login', 'post', formData);
+    const url = 'http://localhost:4000/api/v1/auth/login';
+    await getFetch(url, 'post', formData);
   };
 
   return (

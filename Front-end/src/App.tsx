@@ -1,7 +1,5 @@
-import './App.css';
-import { CardsGrid } from './components/cards/CardsGrid';
-
 import { Template } from './components/layout/Template';
+import { CardsGrid } from './components/cards/CardsGrid';
 
 function App() {
   return (

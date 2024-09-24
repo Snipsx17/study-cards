@@ -1,29 +1,6 @@
 import { useState } from 'react';
 
-type DataFetch = {
-  [key: string]: any;
-};
-
-type errorMessage = {
-  message: string;
-};
-
-interface getFetchProps {
-  url: string;
-  method?: requestMethods;
-  body?: {};
-}
-
-type requestMethods = 'get' | 'post' | 'delete' | 'put';
-
-interface FetchI {
-  data: null | DataFetch;
-  isFetching: boolean;
-  hasError: boolean;
-  error: null | errorMessage;
-  getFetch: (url: string, method: requestMethods, body?: {}) => Promise<void>;
-  setError: (errorMessage: string) => void;
-}
+import { DataFetch, FetchI, requestMethods } from '../@types/types';
 
 export const useFetch = () => {
   const [fetchState, setFetchState] = useState<FetchI>({
@@ -50,6 +27,7 @@ export const useFetch = () => {
       }
 
       const data: null | DataFetch = await response.json();
+
       const newState = {
         data,
         isFetching: false,
@@ -58,6 +36,7 @@ export const useFetch = () => {
         getFetch,
         setError,
       };
+
       setFetchState(newState);
     } catch (error) {
       if (error instanceof Error) {

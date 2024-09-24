@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLogin } from '@/providers/auth/UseLogin';
 import { getTokenJwt } from '@/utils/getTokenJwt';
 import { useGetCards } from '@/hooks/useGetCards';
+import { StateMessage } from '../layout/StateMessage';
 
 import { Card } from './Card';
 import { StateMessage } from '@/components/layout/StateMessage';

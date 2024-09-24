@@ -7,6 +7,7 @@ import { useFetch } from '@/hooks/useFetch';
 import { AuthContextType } from '@/@types/types';
 
 import LogoutIcon from '@/assets/logout-icon.svg?react';
+import { useFetch } from '@/hooks/useFetch';
 
 export const AsideMenu = () => {
   const { asideMenuIsVisible, hideAsideMenu } = useAsideMenuContext();

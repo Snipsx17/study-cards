@@ -7,6 +7,8 @@ import { useOverlayContext, useLogin } from '../../providers';
 import { Input } from './Input';
 import { SubmitButton } from './button/SubmitButton';
 import { Message } from '../UI/Message';
+import UserIcon from '@/assets/user-solid.svg?react';
+import LockIcon from '@/assets/lock-solid.svg?react';
 
 import { AuthContextType, OverlayProviderProps } from '@/@types/types';
 
